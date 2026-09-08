@@ -1,0 +1,655 @@
+{
+  "pbtResults": {
+    "10.8 Property test: non-2xx≠404 → \"risposta HTTP non valida\"": {
+      "status": "passed",
+      "lastRunTimestamp": 1788907228656
+    },
+    "11.2 Property test: il messaggio d'errore ha lunghezza 1..200": {
+      "status": "passed",
+      "lastRunTimestamp": 1788907373915
+    }
+  },
+  "executionHistory": {
+    "1. Setup degli strumenti di test e degli script npm": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905700320
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905714550
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905804072
+      }
+    ],
+    "2.1 Scrivere i test rossi per errors.ts": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905700414
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905807675
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906421368
+      }
+    ],
+    "2.2 Implementare errors.ts (verde)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905700468
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906428560
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906527468
+      }
+    ],
+    "3.1 Definire i tipi di dominio in src/types/pokemon.ts": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905700563
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905809029
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906422665
+      }
+    ],
+    "4.1 Scrivere i test rossi per url.ts": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905700635
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905810496
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906423526
+      }
+    ],
+    "4.2 Implementare url.ts (verde)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905700687
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906430019
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906528348
+      }
+    ],
+    "4.3 Property test: composizione URL con separatore singolo": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905700734
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906534383
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906642701
+      }
+    ],
+    "5.1 Scrivere i test rossi per validation.ts": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905700778
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906430891
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906529777
+      }
+    ],
+    "5.2 Implementare validation.ts (verde)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905700817
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906535413
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906643818
+      }
+    ],
+    "6. Checkpoint - Assicurarsi che tutti i test passino": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905700865
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907641243
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907654506
+      }
+    ],
+    "7.1 Definire i tipi Raw in src/api/raw.ts": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905700920
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905811323
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906424786
+      }
+    ],
+    "7.2 Scrivere i test rossi per parse.ts": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905700964
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906431926
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906530717
+      }
+    ],
+    "7.3 Implementare parse.ts (verde)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701017
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906536708
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906641318
+      }
+    ],
+    "8.1 Scrivere i test rossi per mappers.ts": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701095
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906537711
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906640429
+      }
+    ],
+    "8.2 Implementare mappers.ts (verde)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701144
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906651081
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906701237
+      }
+    ],
+    "8.3 Property test: mapping GET Raw → dominio": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701185
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906705304
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906875671
+      }
+    ],
+    "8.4 Property test: invarianti Pagina_LIST e preservazione riferimenti": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701234
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906706210
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906876895
+      }
+    ],
+    "8.5 Property test: corpo 2xx non conforme rilevato dal parsing": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701284
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906707536
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906875579
+      }
+    ],
+    "9. Checkpoint - Assicurarsi che tutti i test passino": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701341
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907657389
+      }
+    ],
+    "10.1 Scrivere i test rossi per la creazione del client": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701404
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906708586
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906873208
+      }
+    ],
+    "10.2 Implementare createPokeApiClient e lo scheletro get/list (verde)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701450
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906881730
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906970366
+      }
+    ],
+    "10.3 Scrivere i test rossi per get/list (happy path ed errori)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701494
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906973815
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907062064
+      }
+    ],
+    "10.4 Implementare get e list con timeout e gestione errori (verde)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701533
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907065562
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907147743
+      }
+    ],
+    "10.5 Property test: identificatore normalizzato nell'URL": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701582
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907153498
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907261369
+      }
+    ],
+    "10.6 Property test: query di paginazione nella LIST": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701622
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907154837
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907262634
+      }
+    ],
+    "10.7 Property test: 404 → \"risorsa non trovata\" con stato e identificatore": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701665
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907156293
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907264048
+      }
+    ],
+    "10.8 Property test: non-2xx≠404 → \"risposta HTTP non valida\"": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701710
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907157240
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907264992
+      }
+    ],
+    "10.9 Property test: fetch che rigetta → \"errore di rete\"": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701748
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907158411
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907266299
+      }
+    ],
+    "10.10 Property test: Base_URL configurato è prefisso di ogni richiesta": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701783
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907270538
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907514825
+      }
+    ],
+    "10.11 Property test: parametri non validi rifiutati senza richiesta HTTP": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701827
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907271802
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907512050
+      }
+    ],
+    "10.12 Property test: creazione rifiutata per Base_URL non valido": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701888
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907272759
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907513435
+      }
+    ],
+    "11.1 Property test: la categoria dell'errore è sempre nell'insieme ammesso": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701933
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907274152
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907517665
+      }
+    ],
+    "11.2 Property test: il messaggio d'errore ha lunghezza 1..200": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905701967
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907275362
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907516274
+      }
+    ],
+    "11.3 Property test: httpStatus presente e valido per le categorie HTTP": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905702001
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907518609
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907631736
+      }
+    ],
+    "12. Checkpoint finale - Assicurarsi che tutti i test passino": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788905702038
+      },
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788908170918
+      }
+    ],
+    "3. Tipi di dominio": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906422759
+      }
+    ],
+    "2. Modello degli errori e Result (fondamenta condivise)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906527576
+      }
+    ],
+    "7. Tipi Raw e parsing/narrowing difensivo": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906641399
+      }
+    ],
+    "4. Composizione URL (funzioni pure)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906642766
+      }
+    ],
+    "5. Validazione dei parametri (funzioni pure)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906643905
+      }
+    ],
+    "8. Mapping Raw → Dominio (funzioni pure)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788906876969
+      }
+    ],
+    "10. Client PokéAPI: creazione, GET e LIST (cablaggio finale)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907514915
+      }
+    ],
+    "11. Invarianti trasversali del modello errori (property test)": [
+      {
+        "executionId": "8ed569a2-63f2-4290-8333-dc7fd7946562",
+        "chatSessionId": "sess_78dcdd92-d804-41d6-8684-7840341e64c4",
+        "timestamp": 1788907631869
+      }
+    ]
+  }
+}
