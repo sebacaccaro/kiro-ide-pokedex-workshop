@@ -55,6 +55,7 @@ export function mapPokemon(raw: PokemonRaw): Pokemon {
     baseExperience: raw.base_experience,
     abilities: raw.abilities.map(mapAbility),
     types: raw.types.map(mapType),
+    spriteUrl: raw.sprites.front_default,
   };
 }
 

@@ -52,6 +52,8 @@ describe('parsePokemonRaw', () => {
         { ability: { name: 'lightning-rod' }, is_hidden: true, slot: 3 },
       ],
       types: [{ slot: 1, type: { name: 'electric' } }],
+      // `sprites` assente nel corpo → normalizzato a { front_default: null }.
+      sprites: { front_default: null },
     };
     expect(result).toEqual(expected);
   });
@@ -98,6 +100,75 @@ describe('parsePokemonRaw', () => {
     };
 
     expect(parsePokemonRaw(body)).toBeNull();
+  });
+});
+
+// Unit test (esempi) per il narrowing difensivo dello Sprite_Pokemon
+// (Requirement 8.1). Il confine non si fida della forma: `sprites.front_default`
+// deve essere stringa oppure null; se `sprites` manca o `front_default` non è né
+// stringa né null, `front_default` viene normalizzato a null (nessun dominio
+// parziale, coerente con la filosofia di parse.ts).
+// _Requirements: 8.1_
+describe('parsePokemonRaw — sprite', () => {
+  // Base conforme che include il campo `sprites`, usata per i casi sprite.
+  const conformingWithSprite = {
+    ...conformingPokemon,
+    sprites: {
+      front_default:
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
+    },
+  };
+
+  it('conserva sprites.front_default quando è una stringa', () => {
+    const body: unknown = conformingWithSprite;
+
+    const result = parsePokemonRaw(body);
+
+    expect(result?.sprites.front_default).toBe(
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
+    );
+  });
+
+  it('conserva sprites.front_default quando è null', () => {
+    const body: unknown = {
+      ...conformingPokemon,
+      sprites: { front_default: null },
+    };
+
+    const result = parsePokemonRaw(body);
+
+    expect(result).not.toBeNull();
+    expect(result?.sprites.front_default).toBeNull();
+  });
+
+  it('normalizza front_default a null quando il campo sprites manca del tutto', () => {
+    const body: unknown = conformingPokemon;
+
+    const result = parsePokemonRaw(body);
+
+    expect(result).not.toBeNull();
+    expect(result?.sprites.front_default).toBeNull();
+  });
+
+  it('normalizza front_default a null quando sprites è malformato (non è un oggetto)', () => {
+    const body: unknown = { ...conformingPokemon, sprites: 'nope' };
+
+    const result = parsePokemonRaw(body);
+
+    expect(result).not.toBeNull();
+    expect(result?.sprites.front_default).toBeNull();
+  });
+
+  it('normalizza front_default a null quando front_default ha un tipo non ammesso', () => {
+    const body: unknown = {
+      ...conformingPokemon,
+      sprites: { front_default: 42 },
+    };
+
+    const result = parsePokemonRaw(body);
+
+    expect(result).not.toBeNull();
+    expect(result?.sprites.front_default).toBeNull();
   });
 });
 

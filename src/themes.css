@@ -1,0 +1,90 @@
+/*
+ * Sistema di temi via CSS custom properties.
+ *
+ * Ogni tema definisce un insieme coerente di variabili, selezionate
+ * dall'attributo `data-theme` sull'elemento radice. Le viste consumano solo le
+ * variabili (mai i valori diretti), così lo stesso markup rende in entrambi i
+ * temi (Req 5.5).
+ */
+
+/* Tema_Rosso: palette Game Boy a 4 tonalità (Req 6.1, 6.2, 6.3, 6.4, 6.5, 8.5) */
+[data-theme='rosso'] {
+  --bg: #9bbc0f; /* sfondo predefinito (Req 6.2) */
+  --bg-alt: #8bac0f;
+  --accent: #306230;
+  --text: #0f380f; /* testo, contrasto >= 4.5:1 su --bg (Req 6.2) */
+  --border-color: #0f380f;
+  --border-width: 3px; /* 2..4 px (Req 6.5) */
+  --radius: 0px; /* angoli squadrati (Req 6.5) */
+  --font: 'PixelFont', ui-monospace, monospace; /* pixel + fallback (Req 6.3, 6.4) */
+  /* Duotone verso la palette a 4 tonalità: desatura e vira sul verde (Req 8.5). */
+  --sprite-filter: grayscale(100%) sepia(100%) saturate(180%) hue-rotate(50deg)
+    contrast(115%);
+}
+
+/* Tema_Diamante: colori pieni, dominante blu (Req 7.1, 7.2, 7.3, 8.6) */
+[data-theme='diamante'] {
+  --bg: #2a4b8d; /* blu dominante (Req 7.1) */
+  --bg-alt: #e9eef7;
+  --accent: #3d6bd6;
+  --text: #10233f;
+  --border-color: #2a4b8d;
+  --border-width: 1px;
+  --radius: 12px; /* 8..16 px (Req 7.2) */
+  --font: system-ui, -apple-system, 'Segoe UI', sans-serif; /* antialiasato (Req 7.3) */
+  --sprite-filter: none; /* colori pieni (Req 8.6) */
+}
+
+/* Applicazione delle variabili di tema alla radice dell'app. */
+[data-theme] {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+}
+
+/* Tema_Diamante: testo antialiasato con dimensione base >= 14px (Req 7.3). */
+[data-theme='diamante'] {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Lo sprite del Pokémon consuma il filtro definito dal tema (Req 8.5, 8.6). */
+.pokedex-sprite {
+  filter: var(--sprite-filter);
+}
+
+/*
+ * Cursore a freccia e visibilità dei tipi per tema.
+ *
+ * La riga dell'elenco (`PokemonListItem`) rende sempre numero, nome e la regione
+ * dei tipi nel markup; sono i temi, via CSS, a regolarne resa e visibilità.
+ * L'elemento selezionato espone `aria-current="true"` (vedi PokemonListItem).
+ */
+
+/* Tema_Rosso: cursore a freccia a sinistra del solo elemento selezionato (Req 6.6). */
+[data-theme='rosso'] [role='button'][aria-current='true'] {
+  position: relative;
+}
+
+[data-theme='rosso'] [role='button'][aria-current='true']::before {
+  content: '▶';
+  position: absolute;
+  left: -1.25em;
+  color: #0f380f; /* tonalità più scura della palette a 4 tonalità */
+}
+
+/* Tema_Rosso: nessun cursore sugli elementi non selezionati (Req 6.6). */
+[data-theme='rosso'] [role='button']:not([aria-current='true'])::before {
+  content: none;
+}
+
+/* Tema_Rosso: nasconde i tipi, mantenendo "numero nome" (Req 6.7). */
+[data-theme='rosso'] .pokemon-types {
+  display: none;
+}
+
+/* Tema_Diamante: mostra la regione dei tipi (Req 7.4). */
+[data-theme='diamante'] .pokemon-types {
+  display: inline;
+}

@@ -25,6 +25,7 @@ describe('mapPokemon', () => {
       base_experience: 112,
       abilities: [{ ability: { name: 'static' }, is_hidden: false, slot: 1 }],
       types: [{ slot: 1, type: { name: 'electric' } }],
+      sprites: { front_default: null },
     };
 
     const result = mapPokemon(raw);
@@ -41,6 +42,7 @@ describe('mapPokemon', () => {
       base_experience: 267,
       abilities: [{ ability: { name: 'blaze' }, is_hidden: false, slot: 1 }],
       types: [{ slot: 1, type: { name: 'fire' } }],
+      sprites: { front_default: null },
     };
 
     const result = mapPokemon(raw);
@@ -63,6 +65,7 @@ describe('mapPokemon', () => {
         { ability: { name: 'lightning-rod' }, is_hidden: true, slot: 3 },
       ],
       types: [{ slot: 1, type: { name: 'electric' } }],
+      sprites: { front_default: null },
     };
 
     const result = mapPokemon(raw);
@@ -85,6 +88,7 @@ describe('mapPokemon', () => {
         { slot: 1, type: { name: 'grass' } },
         { slot: 2, type: { name: 'poison' } },
       ],
+      sprites: { front_default: null },
     };
 
     const result = mapPokemon(raw);
@@ -107,6 +111,7 @@ describe('mapPokemon', () => {
         { ability: { name: 'lightning-rod' }, is_hidden: true, slot: 3 },
       ],
       types: [{ slot: 1, type: { name: 'electric' } }],
+      sprites: { front_default: null },
     };
 
     const result = mapPokemon(raw);
@@ -122,8 +127,56 @@ describe('mapPokemon', () => {
         { name: 'lightning-rod', isHidden: true, slot: 3 },
       ],
       types: [{ slot: 1, name: 'electric' }],
+      spriteUrl: null,
     };
     expect(result).toEqual(expected);
+  });
+});
+
+// Unit test (esempi) per il mapping dello Sprite_Pokemon (Requirement 8.1).
+// `mapPokemon` deve tradurre `sprites.front_default` (stringa o null) nel campo
+// di dominio `spriteUrl`, senza mai produrre un dominio parziale.
+// _Requirements: 8.1_
+describe('mapPokemon — sprite', () => {
+  it('traduce sprites.front_default (stringa) nel campo di dominio spriteUrl', () => {
+    const raw: PokemonRaw = {
+      id: 25,
+      name: 'pikachu',
+      height: 4,
+      weight: 60,
+      base_experience: 112,
+      abilities: [{ ability: { name: 'static' }, is_hidden: false, slot: 1 }],
+      types: [{ slot: 1, type: { name: 'electric' } }],
+      sprites: {
+        front_default:
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
+      },
+    };
+
+    const result = mapPokemon(raw);
+
+    expect(result.spriteUrl).toBe(
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
+    );
+  });
+
+  it('mappa spriteUrl a null quando sprites.front_default è null', () => {
+    const raw: PokemonRaw = {
+      id: 201,
+      name: 'unown',
+      height: 5,
+      weight: 50,
+      base_experience: 118,
+      abilities: [{ ability: { name: 'levitate' }, is_hidden: false, slot: 1 }],
+      types: [{ slot: 1, type: { name: 'psychic' } }],
+      sprites: {
+        front_default: null,
+      },
+    };
+
+    const result = mapPokemon(raw);
+
+    expect(result.spriteUrl).toBeNull();
   });
 });
 
@@ -222,6 +275,40 @@ describe('mapPokemon (property-based)', () => {
     base_experience: fc.integer({ min: 0, max: 1000 }),
     abilities: fc.array(abilityEntryRaw, { maxLength: 5 }),
     types: fc.array(typeEntryRaw, { minLength: 1, maxLength: 2 }),
+    sprites: fc.record({
+      front_default: fc.option(fc.webUrl(), { nil: null }),
+    }),
+  });
+
+  // Feature: pokedex-themed-views, Property 10: spriteUrl riflette fedelmente sprites.front_default
+  // Validates: Requirements 8.1
+  it('per ogni PokemonRaw, spriteUrl è uguale a sprites.front_default (stringa o null)', () => {
+    // sprites.front_default: stringa (URL non vuoto) oppure null, come dalle PokéAPI.
+    const spriteFrontDefault: fc.Arbitrary<string | null> = fc.option(
+      fc.webUrl(),
+      { nil: null },
+    );
+
+    const pokemonRawWithSprite: fc.Arbitrary<PokemonRaw> = fc.record({
+      id: fc.integer({ min: 1, max: 100000 }),
+      name: resourceName,
+      height: fc.integer({ min: 0, max: 1000 }),
+      weight: fc.integer({ min: 0, max: 100000 }),
+      base_experience: fc.integer({ min: 0, max: 1000 }),
+      abilities: fc.array(abilityEntryRaw, { maxLength: 5 }),
+      types: fc.array(typeEntryRaw, { minLength: 1, maxLength: 2 }),
+      sprites: fc.record({ front_default: spriteFrontDefault }),
+    });
+
+    fc.assert(
+      fc.property(pokemonRawWithSprite, (raw) => {
+        const result = mapPokemon(raw);
+
+        // spriteUrl riflette fedelmente sprites.front_default, senza dominio parziale.
+        expect(result.spriteUrl).toBe(raw.sprites.front_default);
+      }),
+      { numRuns: 100 },
+    );
   });
 
   it('preserva id/name/height/weight, mappa base_experience e abilità/tipi per ogni PokemonRaw valido', () => {

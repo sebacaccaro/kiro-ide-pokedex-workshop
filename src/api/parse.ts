@@ -11,6 +11,7 @@ import type {
   AbilityEntryRaw,
   PokemonListPageRaw,
   PokemonRaw,
+  PokemonSpritesRaw,
   ResourceReferenceRaw,
   TypeEntryRaw,
 } from './raw';
@@ -71,6 +72,19 @@ function parseTypeEntry(value: unknown): TypeEntryRaw | null {
     slot: value.slot,
     type: { name: value.type.name },
   };
+}
+
+/**
+ * Narrowing difensivo dello sprite (Requirement 8.1). A differenza degli altri
+ * campi consumati, uno `sprites` mancante o malformato non invalida l'intero
+ * Pokémon: si normalizza `front_default` a `null`. `front_default` è ammesso
+ * solo come stringa oppure `null`; qualunque altro tipo diventa `null`.
+ */
+function parseSprites(value: unknown): PokemonSpritesRaw {
+  if (isRecord(value) && isString(value.front_default)) {
+    return { front_default: value.front_default };
+  }
+  return { front_default: null };
 }
 
 function parseResourceReference(value: unknown): ResourceReferenceRaw | null {
@@ -138,6 +152,7 @@ export function parsePokemonRaw(body: unknown): PokemonRaw | null {
     base_experience: body.base_experience,
     abilities,
     types,
+    sprites: parseSprites(body.sprites),
   };
 }
 

@@ -7,6 +7,10 @@
 //
 // Vengono tipizzati soltanto i campi effettivamente consumati (Requirement 5.1).
 
+export interface PokemonSpritesRaw {
+  readonly front_default: string | null;
+}
+
 export interface PokemonRaw {
   readonly id: number;
   readonly name: string;
@@ -15,6 +19,7 @@ export interface PokemonRaw {
   readonly base_experience: number;
   readonly abilities: readonly AbilityEntryRaw[];
   readonly types: readonly TypeEntryRaw[];
+  readonly sprites: PokemonSpritesRaw; // <- NUOVO (Req 8): da sprites.front_default
 }
 
 export interface AbilityEntryRaw {

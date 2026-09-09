@@ -1,0 +1,810 @@
+{
+  "pbtResults": {
+    "2.2 Property test per il mapping dello sprite (fast-check)": {
+      "status": "failed",
+      "failingExample": "Property failed after 1 tests\n{ seed: -1194469359, path: \"0:0:0:0:0:0:0:0:0:0:0:0:0\", endOnFailure: true }\nCounterexample: [{\"id\":1,\"name\":\"a\",\"height\":0,\"weight\":0,\"base_experience\":0,\"abilities\":[],\"types\":[{\"slot\":1,\"type\":{\"name\":\"a\"}}],\"sprites\":{\"front_default\":null}}]\nShrunk 12 time(s)\nCaused by: AssertionError: expected undefined to be null (Object.is equality). Expected: null, Received: undefined.\nReason: mapPokemon non mappa ancora spriteUrl (task 2.4) e Pokemon non dichiara spriteUrl (task 2.3): result.spriteUrl è undefined. RED atteso per il ciclo TDD.",
+      "lastRunTimestamp": 1788910456512
+    },
+    "4.3 Property test: normalizzazione totale e stabile (fast-check)": {
+      "status": "passed",
+      "lastRunTimestamp": 1788910564767
+    }
+  },
+  "executionHistory": {
+    "1. Configurare l'ambiente di test dei componenti": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910226583
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910243535
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910375157
+      }
+    ],
+    "2.1 Scrivere i test rossi per il parsing/mapping dello sprite": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910226651
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910244757
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910376500
+      }
+    ],
+    "2.2 Property test per il mapping dello sprite (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910226696
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910385352
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910474349
+      }
+    ],
+    "2.3 Estendere i tipi raw e il dominio (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910226759
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910386554
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910475125
+      }
+    ],
+    "2.4 Implementare parsing e mapping dello sprite (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910226851
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910483413
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910665501
+      }
+    ],
+    "3.1 Scrivere i test rossi per l'estrazione id e il filtro": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910226918
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910246164
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910377906
+      }
+    ],
+    "3.2 Implementare `extractIdFromUrl`, `isFirstGeneration`, `toFirstGenEntries` (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910226964
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910388090
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910478426
+      }
+    ],
+    "3.3 Property test: filtro Prima_Generazione (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227006
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910484942
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910662698
+      }
+    ],
+    "3.4 Property test: round trip id → url → id (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227051
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910486166
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910664153
+      }
+    ],
+    "4.1 Scrivere i test rossi per la normalizzazione del tema": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227090
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910247216
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910378966
+      }
+    ],
+    "4.2 Implementare `ThemeName`, `DEFAULT_THEME`, `normalizeThemeName` (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227134
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910389420
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910477092
+      }
+    ],
+    "4.3 Property test: normalizzazione totale e stabile (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227186
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910487175
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910666498
+      }
+    ],
+    "5.1 Scrivere i test rossi con client mockato": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227232
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910675438
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910789274
+      }
+    ],
+    "5.2 Implementare `usePokemonList` (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227295
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910867164
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911026467
+      }
+    ],
+    "5.3 Property test: progressione degli offset (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227363
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911155446
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911866149
+      }
+    ],
+    "5.4 Property test: crescita per concatenazione filtrata (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227403
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911156829
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911863866
+      }
+    ],
+    "5.5 Property test: propagazione fedele della categoria d'errore (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227481
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911157765
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911871748
+      }
+    ],
+    "6.1 Scrivere i test rossi con client mockato": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227532
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910676834
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910791936
+      }
+    ],
+    "6.2 Implementare `usePokemonDetail` (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227599
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910868629
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911022930
+      }
+    ],
+    "6.3 Property test: propagazione fedele della categoria d'errore (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227653
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911164325
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911867618
+      }
+    ],
+    "7. Checkpoint - Assicurarsi che i test della logica passino": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227698
+      }
+    ],
+    "8.1 Scrivere i test rossi con storage mockato": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227740
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910678303
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910792874
+      }
+    ],
+    "8.2 Implementare `ThemeProvider`, `ThemeContext` e `useTheme` (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227799
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910869979
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911023887
+      }
+    ],
+    "8.3 Property test: persistenza del tema come round trip (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227857
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911165756
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911862344
+      }
+    ],
+    "9.1 Scrivere i test rossi con RTL": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227903
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910679182
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910790525
+      }
+    ],
+    "9.2 Implementare `PokemonDetail` (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910227985
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910870914
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911021517
+      }
+    ],
+    "9.3 Property test: campi scalari nel dettaglio (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228031
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911159162
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911870361
+      }
+    ],
+    "9.4 Property test: tipi in ordine di slot (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228083
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911160559
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911869079
+      }
+    ],
+    "9.5 Property test: tutte le abilità compaiono (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228123
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911161964
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911865181
+      }
+    ],
+    "9.6 Property test: immagine con alt = nome quando sprite valorizzato (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228181
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911163449
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911859656
+      }
+    ],
+    "10.1 Scrivere i test rossi con RTL": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228224
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910680406
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910794275
+      }
+    ],
+    "10.2 Implementare `PokemonListItem` e `PokemonList` (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228273
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910872146
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911025452
+      }
+    ],
+    "10.3 Property test: ogni riga contiene numero, nome e tipi (fast-check)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228329
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911166942
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911860934
+      }
+    ],
+    "11.1 Scrivere i test rossi con RTL": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228368
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910795289
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910862629
+      }
+    ],
+    "11.2 Implementare `ThemeSwitcher`, `LoadingIndicator`, `ErrorMessage` (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228416
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911030219
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911146979
+      }
+    ],
+    "12. Checkpoint - Assicurarsi che i test dei componenti passino": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228470
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911887775
+      }
+    ],
+    "13.1 Scrivere i test rossi con RTL e client mockato": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228517
+      },
+      {
+        "executionId": "652383d5-b43c-4b31-aa52-836acf7f637c",
+        "chatSessionId": "sess_4d2c570f-f8b6-463f-84d6-1ba4cdf20a81",
+        "timestamp": 1788912627172
+      },
+      {
+        "executionId": "2bdb1fdc-ca1a-46be-a05f-dacbc6995081",
+        "chatSessionId": "sess_0ed921c7-19d0-427d-8d16-9c0fb0a798f2",
+        "timestamp": 1788913077993
+      }
+    ],
+    "13.2 Implementare `PokemonListView` e `PokemonDetailView` (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228568
+      },
+      {
+        "executionId": "2bdb1fdc-ca1a-46be-a05f-dacbc6995081",
+        "chatSessionId": "sess_0ed921c7-19d0-427d-8d16-9c0fb0a798f2",
+        "timestamp": 1788913080666
+      }
+    ],
+    "14.1 Scrivere il test rosso mirato sul contrasto WCAG del Tema_Rosso": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228614
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910390476
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910479412
+      }
+    ],
+    "14.2 Definire le CSS custom properties dei temi via `data-theme` (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228658
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911031333
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911148162
+      }
+    ],
+    "14.3 Implementare cursore freccia (Rosso) e visibilità dei tipi per tema (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228708
+      },
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911873041
+      }
+    ],
+    "15.1 Scrivere i test rossi con RTL": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228753
+      },
+      {
+        "executionId": "2bdb1fdc-ca1a-46be-a05f-dacbc6995081",
+        "chatSessionId": "sess_0ed921c7-19d0-427d-8d16-9c0fb0a798f2",
+        "timestamp": 1788913084348
+      },
+      {
+        "executionId": "2bdb1fdc-ca1a-46be-a05f-dacbc6995081",
+        "chatSessionId": "sess_0ed921c7-19d0-427d-8d16-9c0fb0a798f2",
+        "timestamp": 1788913202988
+      }
+    ],
+    "15.2 Implementare il wiring in `App` (verde)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228795
+      },
+      {
+        "executionId": "2bdb1fdc-ca1a-46be-a05f-dacbc6995081",
+        "chatSessionId": "sess_0ed921c7-19d0-427d-8d16-9c0fb0a798f2",
+        "timestamp": 1788913205801
+      },
+      {
+        "executionId": "2bdb1fdc-ca1a-46be-a05f-dacbc6995081",
+        "chatSessionId": "sess_0ed921c7-19d0-427d-8d16-9c0fb0a798f2",
+        "timestamp": 1788913352102
+      }
+    ],
+    "16. Checkpoint finale - Qualità e aggiornamento README": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910228835
+      }
+    ],
+    "3. Implementare la logica pura di generazione (lib/generation.ts)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910664211
+      }
+    ],
+    "2. Estendere il dominio con lo Sprite_Pokemon (livello api/)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910665545
+      }
+    ],
+    "4. Implementare la logica pura dei temi (lib/theme.ts)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788910666556
+      }
+    ],
+    "11. Implementare i componenti di stato (ThemeSwitcher, LoadingIndicator, ErrorMessage)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911147113
+      }
+    ],
+    "10. Implementare i componenti dell'elenco (PokemonListItem, PokemonList)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911861046
+      }
+    ],
+    "8. Implementare il Gestore_Temi (ThemeProvider + useTheme)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911862397
+      }
+    ],
+    "6. Implementare l'hook del dettaglio (hooks/usePokemonDetail.ts)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911867739
+      }
+    ],
+    "9. Implementare il componente di dettaglio (components/PokemonDetail.tsx)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911870449
+      }
+    ],
+    "5. Implementare l'hook dell'elenco (hooks/usePokemonList.ts)": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911871813
+      }
+    ],
+    "14. Implementare il CSS dei due temi": [
+      {
+        "executionId": "439999f0-7476-472a-aaad-08d81633b36f",
+        "chatSessionId": "sess_a8c3e0a5-ef65-44da-8458-cde057ddfd33",
+        "timestamp": 1788911873105
+      }
+    ],
+    "13. Comporre le viste (PokemonListView, PokemonDetailView)": [
+      {
+        "executionId": "652383d5-b43c-4b31-aa52-836acf7f637c",
+        "chatSessionId": "sess_4d2c570f-f8b6-463f-84d6-1ba4cdf20a81",
+        "timestamp": 1788912603718
+      },
+      {
+        "executionId": "2bdb1fdc-ca1a-46be-a05f-dacbc6995081",
+        "chatSessionId": "sess_0ed921c7-19d0-427d-8d16-9c0fb0a798f2",
+        "timestamp": 1788913080776
+      }
+    ]
+  }
+}

@@ -235,6 +235,8 @@ describe('PokeApiClient.get', () => {
         baseExperience: 112,
         abilities: [{ name: 'static', isHidden: false, slot: 1 }],
         types: [{ slot: 1, name: 'electric' }],
+        // Il corpo mock non porta `sprites`: il dominio ha spriteUrl null.
+        spriteUrl: null,
       });
     }
   });

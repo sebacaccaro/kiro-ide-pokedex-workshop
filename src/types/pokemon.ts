@@ -21,6 +21,7 @@ export interface Pokemon {
   readonly baseExperience: number; // <- da base_experience
   readonly abilities: readonly PokemonAbility[];
   readonly types: readonly PokemonType[];
+  readonly spriteUrl: string | null; // <- NUOVO (Req 8.1): da sprites.front_default
 }
 
 export interface ResourceReference {
