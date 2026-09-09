@@ -13,13 +13,20 @@ export interface ErrorMessageProps {
   readonly onRetry?: () => void;
 }
 
-export function ErrorMessage({ category, message, onRetry }: ErrorMessageProps): ReactElement {
+export function ErrorMessage({
+  category,
+  message,
+  onRetry,
+}: ErrorMessageProps): ReactElement {
   return (
-    <div role="alert">
+    <div role="alert" className="error-message-box">
+      <span className="error-message-box__icon" aria-hidden="true">
+        !
+      </span>
       <p className="error-category">{category}</p>
       <p className="error-message">{message}</p>
       {onRetry !== undefined ? (
-        <button type="button" onClick={onRetry}>
+        <button type="button" className="pokedex-button" onClick={onRetry}>
           Riprova
         </button>
       ) : null}

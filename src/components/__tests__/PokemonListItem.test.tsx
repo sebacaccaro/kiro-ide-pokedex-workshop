@@ -15,16 +15,29 @@ const entry: PokemonListEntry = {
 
 describe('PokemonListItem', () => {
   it('mostra il numero identificativo e il nome nel markup (Req 6.7, 7.4)', () => {
-    render(<PokemonListItem entry={entry} isSelected={false} onSelect={vi.fn()} />);
+    render(
+      <PokemonListItem entry={entry} isSelected={false} onSelect={vi.fn()} />,
+    );
 
     expect(screen.getByText(/25/)).toBeInTheDocument();
     expect(screen.getByText(/pikachu/i)).toBeInTheDocument();
   });
 
+  it("mostra una miniatura dello sprite con alt uguale al nome, derivata dall'id", () => {
+    render(
+      <PokemonListItem entry={entry} isSelected={false} onSelect={vi.fn()} />,
+    );
+
+    const image = screen.getByRole('img', { name: 'pikachu' });
+    expect(image).toHaveAttribute('src', expect.stringContaining('/25.png'));
+  });
+
   it('rende sempre una regione dei tipi nel markup, indipendentemente dal tema (Req 6.7, 7.4)', () => {
     // Il markup contiene sempre i tipi (la visibilità è regolata dal tema via CSS):
     // il componente espone una regione stabile per i tipi.
-    render(<PokemonListItem entry={entry} isSelected={false} onSelect={vi.fn()} />);
+    render(
+      <PokemonListItem entry={entry} isSelected={false} onSelect={vi.fn()} />,
+    );
 
     expect(screen.getByTestId('pokemon-types')).toBeInTheDocument();
   });
@@ -32,7 +45,9 @@ describe('PokemonListItem', () => {
   it('invoca onSelect con l\u0027id alla selezione (Req 1.6)', async () => {
     const onSelect = vi.fn();
     const user = userEvent.setup();
-    render(<PokemonListItem entry={entry} isSelected={false} onSelect={onSelect} />);
+    render(
+      <PokemonListItem entry={entry} isSelected={false} onSelect={onSelect} />,
+    );
 
     await user.click(screen.getByRole('button'));
 
@@ -47,9 +62,14 @@ describe('PokemonListItem', () => {
 
     expect(screen.getByRole('button')).toHaveAttribute('aria-current', 'true');
 
-    rerender(<PokemonListItem entry={entry} isSelected={false} onSelect={vi.fn()} />);
+    rerender(
+      <PokemonListItem entry={entry} isSelected={false} onSelect={vi.fn()} />,
+    );
 
-    expect(screen.getByRole('button')).not.toHaveAttribute('aria-current', 'true');
+    expect(screen.getByRole('button')).not.toHaveAttribute(
+      'aria-current',
+      'true',
+    );
   });
 });
 
@@ -77,12 +97,18 @@ describe('PokemonListItem (property-based)', () => {
     fc.assert(
       fc.property(listEntry, (entry) => {
         render(
-          <PokemonListItem entry={entry} isSelected={false} onSelect={vi.fn()} />,
+          <PokemonListItem
+            entry={entry}
+            isSelected={false}
+            onSelect={vi.fn()}
+          />,
         );
 
         try {
           // Il numero identificativo è presente nel markup.
-          expect(screen.getByText(new RegExp(`\\b${entry.id}\\b`))).toBeInTheDocument();
+          expect(
+            screen.getByText(new RegExp(`\\b${entry.id}\\b`)),
+          ).toBeInTheDocument();
           // Il nome è presente nel markup.
           expect(screen.getByText(entry.name)).toBeInTheDocument();
           // La regione stabile dei tipi è sempre presente (visibilità via tema/CSS).

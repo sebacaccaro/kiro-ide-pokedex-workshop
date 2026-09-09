@@ -20,8 +20,7 @@ export interface AppProps {
 
 /** Vista corrente dell'Applicazione (navigazione state-based). */
 type Route =
-  | { readonly view: 'list' }
-  | { readonly view: 'detail'; readonly id: number };
+  { readonly view: 'list' } | { readonly view: 'detail'; readonly id: number };
 
 /** Selettore_Tema collegato al Gestore_Temi via `useTheme` (Req 5.3, 5.4). */
 function ThemeControls(): ReactElement {
@@ -44,17 +43,37 @@ function App({ client }: AppProps): ReactElement {
 
   return (
     <ThemeProvider>
-      <main>
-        <ThemeControls />
-        {route.view === 'list' ? (
-          <PokemonListView client={client} onSelect={handleSelect} />
-        ) : (
-          <PokemonDetailView
-            client={client}
-            id={route.id}
-            onBack={handleBack}
-          />
-        )}
+      <main className="pokedex-app">
+        {/* Scocca del dispositivo Pokédex: decorativa, valorizzata dal tema.
+            Nel Tema_Rosso disegna la lente blu, le luci e il retino dello
+            speaker; nel Tema_Diamante resta neutra (barra superiore). */}
+        <div className="pokedex-device">
+          <div className="pokedex-device__top" aria-hidden="true">
+            <span className="pokedex-lens" />
+            <span className="pokedex-led pokedex-led--red" />
+            <span className="pokedex-led pokedex-led--yellow" />
+            <span className="pokedex-led pokedex-led--green" />
+          </div>
+
+          <div className="pokedex-device__body">
+            <header className="pokedex-header">
+              <span className="pokedex-title">Pokédex</span>
+              <ThemeControls />
+            </header>
+
+            <div className="pokedex-screen">
+              {route.view === 'list' ? (
+                <PokemonListView client={client} onSelect={handleSelect} />
+              ) : (
+                <PokemonDetailView
+                  client={client}
+                  id={route.id}
+                  onBack={handleBack}
+                />
+              )}
+            </div>
+          </div>
+        </div>
       </main>
     </ThemeProvider>
   );

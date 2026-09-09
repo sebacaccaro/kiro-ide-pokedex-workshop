@@ -1,66 +1,610 @@
 /*
- * Sistema di temi via CSS custom properties.
+ * Sistema di temi + layout del Pokédex.
  *
  * Ogni tema definisce un insieme coerente di variabili, selezionate
- * dall'attributo `data-theme` sull'elemento radice. Le viste consumano solo le
- * variabili (mai i valori diretti), così lo stesso markup rende in entrambi i
- * temi (Req 5.5).
+ * dall'attributo `data-theme` sull'elemento radice. I componenti consumano solo
+ * le variabili (mai i valori diretti), così lo stesso markup rende in entrambi i
+ * temi (Req 5.5):
+ *   - Tema_Rosso: il classico dispositivo Pokédex rosso con schermo "Game Boy"
+ *     verde, font pixel, angoli squadrati (Req 6.1-6.6, 8.5).
+ *   - Tema_Diamante: interfaccia moderna, dominante blu, angoli arrotondati,
+ *     badge dei tipi a colori pieni (Req 7.1-7.4, 8.6).
  */
 
-/* Tema_Rosso: palette Game Boy a 4 tonalità (Req 6.1, 6.2, 6.3, 6.4, 6.5, 8.5) */
+/* ========================================================================== */
+/* Reset minimale e base                                                      */
+/* ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+}
+
+/* ========================================================================== */
+/* Palette dei tipi (colori ufficiali condivisi da entrambi i temi)           */
+/* ========================================================================== */
+
+.type-badge[data-type='normal'] {
+  --type-color: #a8a77a;
+}
+.type-badge[data-type='fire'] {
+  --type-color: #ee8130;
+}
+.type-badge[data-type='water'] {
+  --type-color: #6390f0;
+}
+.type-badge[data-type='electric'] {
+  --type-color: #f7d02c;
+}
+.type-badge[data-type='grass'] {
+  --type-color: #7ac74c;
+}
+.type-badge[data-type='ice'] {
+  --type-color: #96d9d6;
+}
+.type-badge[data-type='fighting'] {
+  --type-color: #c22e28;
+}
+.type-badge[data-type='poison'] {
+  --type-color: #a33ea1;
+}
+.type-badge[data-type='ground'] {
+  --type-color: #e2bf65;
+}
+.type-badge[data-type='flying'] {
+  --type-color: #a98ff3;
+}
+.type-badge[data-type='psychic'] {
+  --type-color: #f95587;
+}
+.type-badge[data-type='bug'] {
+  --type-color: #a6b91a;
+}
+.type-badge[data-type='rock'] {
+  --type-color: #b6a136;
+}
+.type-badge[data-type='ghost'] {
+  --type-color: #735797;
+}
+.type-badge[data-type='dragon'] {
+  --type-color: #6f35fc;
+}
+.type-badge[data-type='dark'] {
+  --type-color: #705746;
+}
+.type-badge[data-type='steel'] {
+  --type-color: #b7b7ce;
+}
+.type-badge[data-type='fairy'] {
+  --type-color: #d685ad;
+}
+
+/* ========================================================================== */
+/* Tema_Rosso — palette Game Boy a 4 tonalità (Req 6.1, 6.2, 6.3, 6.4, 6.5)   */
+/* ========================================================================== */
+
 [data-theme='rosso'] {
-  --bg: #9bbc0f; /* sfondo predefinito (Req 6.2) */
-  --bg-alt: #8bac0f;
-  --accent: #306230;
-  --text: #0f380f; /* testo, contrasto >= 4.5:1 su --bg (Req 6.2) */
-  --border-color: #0f380f;
+  /* Palette schermo Game Boy (DMG): 4 tonalità di verde. */
+  --screen-bg: #9bbc0f; /* sfondo schermo predefinito (Req 6.2) */
+  --screen-bg-alt: #8bac0f;
+  --screen-ink: #0f380f; /* inchiostro, contrasto >= 4.5:1 su --screen-bg (Req 6.2) */
+  --screen-ink-soft: #306230;
+
+  /* Scocca del dispositivo. */
+  --device-shell: #c02c38; /* rosso Pokédex */
+  --device-shell-dark: #8f1f28;
+  --device-shell-light: #e24b56;
+
+  --bg: var(--screen-bg);
+  --text: var(--screen-ink);
+  --accent: var(--screen-ink-soft);
+  --border-color: var(--screen-ink);
   --border-width: 3px; /* 2..4 px (Req 6.5) */
   --radius: 0px; /* angoli squadrati (Req 6.5) */
-  --font: 'PixelFont', ui-monospace, monospace; /* pixel + fallback (Req 6.3, 6.4) */
+  --font:
+    'PixelFont', ui-monospace, 'Courier New', monospace; /* pixel + fallback (Req 6.3, 6.4) */
+
   /* Duotone verso la palette a 4 tonalità: desatura e vira sul verde (Req 8.5). */
   --sprite-filter: grayscale(100%) sepia(100%) saturate(180%) hue-rotate(50deg)
     contrast(115%);
+
+  --page-bg: #2b2b2b; /* sfondo pagina attorno al dispositivo */
 }
 
-/* Tema_Diamante: colori pieni, dominante blu (Req 7.1, 7.2, 7.3, 8.6) */
+/* ========================================================================== */
+/* Tema_Diamante — colori pieni, dominante blu (Req 7.1, 7.2, 7.3, 8.6)       */
+/* ========================================================================== */
+
 [data-theme='diamante'] {
-  --bg: #2a4b8d; /* blu dominante (Req 7.1) */
-  --bg-alt: #e9eef7;
-  --accent: #3d6bd6;
-  --text: #10233f;
-  --border-color: #2a4b8d;
+  --screen-bg: #ffffff;
+  --screen-bg-alt: #eef3fb;
+  --screen-ink: #10233f;
+  --screen-ink-soft: #4a5b76;
+
+  --device-shell: #2a4b8d; /* blu dominante (Req 7.1) */
+  --device-shell-dark: #1e386b;
+  --device-shell-light: #3d6bd6;
+
+  --bg: var(--screen-bg);
+  --text: var(--screen-ink);
+  --accent: var(--device-shell-light);
+  --border-color: #d5deee;
   --border-width: 1px;
-  --radius: 12px; /* 8..16 px (Req 7.2) */
-  --font: system-ui, -apple-system, 'Segoe UI', sans-serif; /* antialiasato (Req 7.3) */
+  --radius: 14px; /* 8..16 px (Req 7.2) */
+  --font:
+    system-ui, -apple-system, 'Segoe UI', sans-serif; /* antialiasato (Req 7.3) */
   --sprite-filter: none; /* colori pieni (Req 8.6) */
-}
 
-/* Applicazione delle variabili di tema alla radice dell'app. */
-[data-theme] {
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: var(--font);
-}
-
-/* Tema_Diamante: testo antialiasato con dimensione base >= 14px (Req 7.3). */
-[data-theme='diamante'] {
-  font-size: 16px;
+  --page-bg: #dfe7f4;
+  font-size: 16px; /* base >= 14px (Req 7.3) */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Lo sprite del Pokémon consuma il filtro definito dal tema (Req 8.5, 8.6). */
-.pokedex-sprite {
-  filter: var(--sprite-filter);
+/* ========================================================================== */
+/* Applicazione delle variabili di tema                                       */
+/* ========================================================================== */
+
+[data-theme] {
+  background-color: var(--page-bg);
+  color: var(--text);
+  font-family: var(--font);
 }
 
-/*
- * Cursore a freccia e visibilità dei tipi per tema.
- *
- * La riga dell'elenco (`PokemonListItem`) rende sempre numero, nome e la regione
- * dei tipi nel markup; sono i temi, via CSS, a regolarne resa e visibilità.
- * L'elemento selezionato espone `aria-current="true"` (vedi PokemonListItem).
- */
+/* ========================================================================== */
+/* Guscio del dispositivo Pokédex                                             */
+/* ========================================================================== */
+
+.pokedex-app {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 24px 16px;
+}
+
+.pokedex-device {
+  width: 100%;
+  max-width: 460px;
+  background-color: var(--device-shell);
+  border-radius: calc(var(--radius) + 8px);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35),
+    inset 0 2px 0 var(--device-shell-light);
+  overflow: hidden;
+}
+
+/* Barra superiore con lente e LED: caratterizza il dispositivo (Tema_Rosso). */
+.pokedex-device__top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: linear-gradient(
+    180deg,
+    var(--device-shell-light),
+    var(--device-shell)
+  );
+  border-bottom: 4px solid var(--device-shell-dark);
+}
+
+.pokedex-lens {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #bfe3ff, #1f6fd0 60%, #0c3f80);
+  border: 3px solid #eef6ff;
+  box-shadow: 0 0 0 3px var(--device-shell-dark);
+  flex: none;
+}
+
+.pokedex-led {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.25);
+  flex: none;
+}
+.pokedex-led--red {
+  background-color: #ff5b5b;
+}
+.pokedex-led--yellow {
+  background-color: #ffd23f;
+}
+.pokedex-led--green {
+  background-color: #4fd06a;
+}
+
+.pokedex-device__body {
+  padding: 16px;
+}
+
+.pokedex-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.pokedex-title {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-shadow: 1px 1px 0 var(--device-shell-dark);
+  font-size: 1.25rem;
+}
+
+/* Lo "schermo" dove vivono le viste. */
+.pokedex-screen {
+  background-color: var(--screen-bg);
+  color: var(--text);
+  border: var(--border-width) solid var(--screen-ink);
+  border-radius: var(--radius);
+  padding: 14px;
+  min-height: 420px;
+  max-height: 72vh;
+  overflow-y: auto;
+}
+
+[data-theme='diamante'] .pokedex-screen {
+  border-color: var(--border-color);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* ========================================================================== */
+/* Selettore_Tema                                                             */
+/* ========================================================================== */
+
+.theme-switcher {
+  display: inline-flex;
+  gap: 4px;
+  background-color: rgba(0, 0, 0, 0.18);
+  padding: 4px;
+  border-radius: calc(var(--radius) + 4px);
+}
+
+.theme-switcher__option {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  color: #fff;
+  font-size: 0.8rem;
+  user-select: none;
+}
+
+.theme-switcher__option input {
+  accent-color: var(--device-shell-light);
+}
+
+.theme-switcher__option--active {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--device-shell-dark);
+  font-weight: 700;
+}
+
+/* ========================================================================== */
+/* Vista_Elenco                                                               */
+/* ========================================================================== */
+
+.pokemon-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pokemon-list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--screen-bg-alt);
+  position: relative;
+}
+
+.pokemon-list-item:hover,
+.pokemon-list-item:focus-visible {
+  outline: none;
+  filter: brightness(1.04);
+}
+
+[data-theme='diamante'] .pokemon-list-item {
+  background-color: var(--screen-bg);
+  box-shadow: 0 1px 3px rgba(16, 35, 63, 0.1);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+[data-theme='diamante'] .pokemon-list-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 35, 63, 0.16);
+}
+
+.pokemon-list-item__sprite {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  image-rendering: pixelated; /* le sprite sono piccole: niente sfocatura */
+  flex: none;
+}
+
+.pokemon-number {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+  min-width: 3ch;
+}
+
+/* Prefisso "#" davanti al numero, senza toccare il testo (id) nel markup. */
+.pokemon-number::before {
+  content: '#';
+  opacity: 0.6;
+}
+
+.pokemon-name {
+  font-weight: 700;
+  text-transform: capitalize;
+  flex: 1;
+}
+
+.pokemon-types {
+  margin-left: auto;
+}
+
+.pokemon-list__loading-more {
+  text-align: center;
+  padding: 10px;
+  opacity: 0.8;
+}
+
+.pokemon-list__sentinel {
+  height: 1px;
+}
+
+/* ========================================================================== */
+/* Vista_Dettaglio                                                            */
+/* ========================================================================== */
+
+.pokemon-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pokemon-detail__bar {
+  display: flex;
+}
+
+.pokemon-detail__screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  background-color: var(--screen-bg-alt);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius);
+}
+
+.pokemon-detail__sprite {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.pokemon-detail__name {
+  margin: 0;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+}
+
+.pokemon-detail__section-title {
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.75;
+}
+
+/* Statistiche in griglia etichetta/valore. */
+.pokemon-detail__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0;
+}
+
+.pokemon-detail__stats .stat {
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  background-color: var(--screen-bg-alt);
+}
+
+.pokemon-detail__stats dt {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
+.pokemon-detail__stats dd {
+  margin: 2px 0 0;
+  font-weight: 700;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========================================================================== */
+/* Badge dei tipi e chip delle abilità                                        */
+/* ========================================================================== */
+
+.type-badge-list,
+.ability-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.type-badge {
+  --type-color: #777; /* fallback per tipi non mappati */
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background-color: var(--type-color);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+
+.ability-chip {
+  padding: 3px 10px;
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--screen-bg-alt);
+  font-size: 0.82rem;
+  text-transform: capitalize;
+}
+
+/* ========================================================================== */
+/* Bottoni, caricamento, errori, stati vuoti                                  */
+/* ========================================================================== */
+
+.pokedex-button {
+  padding: 6px 14px;
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--device-shell);
+  color: #fff;
+  font-weight: 700;
+}
+
+[data-theme='diamante'] .pokedex-button {
+  border-color: var(--device-shell);
+}
+
+.pokedex-button:hover {
+  filter: brightness(1.08);
+}
+
+/* Freccia decorativa sul bottone "Indietro" senza alterarne l'etichetta. */
+.pokemon-detail__back::before {
+  content: '◀ ';
+}
+
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 12px;
+  font-weight: 700;
+}
+
+.loading-indicator__spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: pokedex-spin 0.8s linear infinite;
+}
+
+@keyframes pokedex-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-indicator__spinner {
+    animation: none;
+  }
+}
+
+.error-message-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  padding: 24px 16px;
+}
+
+.error-message-box__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #c22e28;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.4rem;
+}
+
+.error-category {
+  margin: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.error-message {
+  margin: 0;
+}
+
+.empty-state,
+.not-found {
+  text-align: center;
+  padding: 40px 16px;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+/* ========================================================================== */
+/* Regole guidate dal tema: cursore a freccia e visibilità dei tipi           */
+/* ========================================================================== */
 
 /* Tema_Rosso: cursore a freccia a sinistra del solo elemento selezionato (Req 6.6). */
 [data-theme='rosso'] [role='button'][aria-current='true'] {
@@ -71,7 +615,7 @@
   content: '▶';
   position: absolute;
   left: -1.25em;
-  color: #0f380f; /* tonalità più scura della palette a 4 tonalità */
+  color: var(--screen-ink);
 }
 
 /* Tema_Rosso: nessun cursore sugli elementi non selezionati (Req 6.6). */
@@ -87,4 +631,9 @@
 /* Tema_Diamante: mostra la regione dei tipi (Req 7.4). */
 [data-theme='diamante'] .pokemon-types {
   display: inline;
+}
+
+/* Lo sprite consuma il filtro definito dal tema (Req 8.5, 8.6). */
+.pokedex-sprite {
+  filter: var(--sprite-filter);
 }

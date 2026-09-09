@@ -59,7 +59,11 @@ export function PokemonList({
           Caricamento in corso…
         </div>
       ) : null}
-      <div ref={sentinelRef} className="pokemon-list__sentinel" aria-hidden="true" />
+      <div
+        ref={sentinelRef}
+        className="pokemon-list__sentinel"
+        aria-hidden="true"
+      />
     </div>
   );
 }

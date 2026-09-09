@@ -14,16 +14,31 @@ export interface ThemeSwitcherProps {
 }
 
 /** Opzioni disponibili con la relativa etichetta visibile. */
-const THEME_OPTIONS: ReadonlyArray<{ readonly value: ThemeName; readonly label: string }> = [
+const THEME_OPTIONS: ReadonlyArray<{
+  readonly value: ThemeName;
+  readonly label: string;
+}> = [
   { value: 'rosso', label: 'Rosso' },
   { value: 'diamante', label: 'Diamante' },
 ];
 
-export function ThemeSwitcher({ theme, onChange }: ThemeSwitcherProps): ReactElement {
+export function ThemeSwitcher({
+  theme,
+  onChange,
+}: ThemeSwitcherProps): ReactElement {
   return (
-    <div role="radiogroup" aria-label="Selettore tema">
+    <div
+      className="theme-switcher"
+      role="radiogroup"
+      aria-label="Selettore tema"
+    >
       {THEME_OPTIONS.map((option) => (
-        <label key={option.value}>
+        <label
+          key={option.value}
+          className={`theme-switcher__option${
+            theme === option.value ? ' theme-switcher__option--active' : ''
+          }`}
+        >
           <input
             type="radio"
             name="theme"

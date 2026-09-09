@@ -12,6 +12,13 @@ export interface LoadingIndicatorProps {
 /** Testo di default quando nessuna label e fornita. */
 const DEFAULT_LABEL = 'Caricamento in corso';
 
-export function LoadingIndicator({ label }: LoadingIndicatorProps): ReactElement {
-  return <div role="status">{label ?? DEFAULT_LABEL}</div>;
+export function LoadingIndicator({
+  label,
+}: LoadingIndicatorProps): ReactElement {
+  return (
+    <div role="status" className="loading-indicator">
+      <span className="loading-indicator__spinner" aria-hidden="true" />
+      {label ?? DEFAULT_LABEL}
+    </div>
+  );
 }

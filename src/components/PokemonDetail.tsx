@@ -18,7 +18,10 @@ export interface PokemonDetailProps {
 /** Classe CSS stabile su cui i due temi agiscono per lo sprite (Req 8.5, 8.6). */
 const SPRITE_CLASS = 'pokedex-sprite';
 
-export function PokemonDetail({ pokemon, onBack }: PokemonDetailProps): ReactElement {
+export function PokemonDetail({
+  pokemon,
+  onBack,
+}: PokemonDetailProps): ReactElement {
   const [hasImageError, setHasImageError] = useState(false);
 
   // Callback ref: registra un listener nativo per l'evento `error` sull'img.
@@ -42,53 +45,74 @@ export function PokemonDetail({ pokemon, onBack }: PokemonDetailProps): ReactEle
   const showImage = pokemon.spriteUrl !== null && !hasImageError;
 
   return (
-    <article>
-      <button type="button" onClick={onBack}>
-        Indietro
-      </button>
+    <article className="pokemon-detail">
+      <header className="pokemon-detail__bar">
+        <button
+          type="button"
+          className="pokedex-button pokemon-detail__back"
+          onClick={onBack}
+        >
+          Indietro
+        </button>
+      </header>
 
-      {showImage ? (
-        <img
-          ref={imageRef}
-          className={SPRITE_CLASS}
-          src={pokemon.spriteUrl ?? undefined}
-          alt={pokemon.name}
-          onError={() => setHasImageError(true)}
-        />
-      ) : (
-        <div className={SPRITE_CLASS} role="presentation" aria-hidden="true" />
-      )}
+      <div className="pokemon-detail__screen">
+        {showImage ? (
+          <img
+            ref={imageRef}
+            className={`${SPRITE_CLASS} pokemon-detail__sprite`}
+            src={pokemon.spriteUrl ?? undefined}
+            alt={pokemon.name}
+            onError={() => setHasImageError(true)}
+          />
+        ) : (
+          <div
+            className={`${SPRITE_CLASS} pokemon-detail__sprite`}
+            role="presentation"
+            aria-hidden="true"
+          />
+        )}
+      </div>
 
-      <h1>{pokemon.name}</h1>
+      <h1 className="pokemon-detail__name">{pokemon.name}</h1>
 
-      <dl>
-        <dt>Numero</dt>
-        <dd>{pokemon.id}</dd>
-
-        <dt>Altezza</dt>
-        <dd>{pokemon.height}</dd>
-
-        <dt>Peso</dt>
-        <dd>{pokemon.weight}</dd>
-
-        <dt>Esperienza base</dt>
-        <dd>{pokemon.baseExperience}</dd>
-      </dl>
-
-      <section aria-label="Tipi">
-        <h2>Tipi</h2>
-        <ul>
+      <section className="pokemon-detail__types" aria-label="Tipi">
+        <h2 className="pokemon-detail__section-title">Tipi</h2>
+        <ul className="type-badge-list">
           {sortedTypes.map((type) => (
-            <li key={type.slot}>{type.name}</li>
+            <li key={type.slot} className="type-badge" data-type={type.name}>
+              {type.name}
+            </li>
           ))}
         </ul>
       </section>
 
-      <section aria-label="Abilita">
-        <h2>Abilita</h2>
-        <ul>
+      <dl className="pokemon-detail__stats">
+        <div className="stat">
+          <dt>Numero</dt>
+          <dd>{pokemon.id}</dd>
+        </div>
+        <div className="stat">
+          <dt>Altezza</dt>
+          <dd>{pokemon.height}</dd>
+        </div>
+        <div className="stat">
+          <dt>Peso</dt>
+          <dd>{pokemon.weight}</dd>
+        </div>
+        <div className="stat">
+          <dt>Esperienza base</dt>
+          <dd>{pokemon.baseExperience}</dd>
+        </div>
+      </dl>
+
+      <section className="pokemon-detail__abilities" aria-label="Abilita">
+        <h2 className="pokemon-detail__section-title">Abilita</h2>
+        <ul className="ability-list">
           {pokemon.abilities.map((ability) => (
-            <li key={ability.slot}>{ability.name}</li>
+            <li key={ability.slot} className="ability-chip">
+              {ability.name}
+            </li>
           ))}
         </ul>
       </section>
