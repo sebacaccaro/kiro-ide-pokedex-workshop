@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Formatta e controlla al salvataggio",
+      "trigger": "PostFileSave",
+      "description": "Al salvataggio di un file .ts o .tsx formatta il file con Prettier e cerca errori con ESLint (zero warning), solo su quel file. Feedback rapido e leggero, senza eseguire i test.",
+      "matcher": "\\.(ts|tsx)$",
+      "action": {
+        "type": "command",
+        "command": "f=$(jq -r '.filePath // .file // empty'); [ -n \"$f\" ] && npx prettier --write \"$f\" && npx eslint --max-warnings=0 \"$f\""
+      }
+    }
+  ]
+}
