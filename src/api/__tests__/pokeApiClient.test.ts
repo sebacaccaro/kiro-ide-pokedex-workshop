@@ -514,3 +514,93 @@ describe('PokeApiClient — timeout e gestione del timer', () => {
     expect(vi.getTimerCount()).toBe(0);
   });
 });
+
+// --- Test getSpecies: happy path ed errori -------------------------------------
+// Fase RED del TDD per il task 3.7. Descrivono il comportamento osservabile di
+// `getSpecies`: 200 con corpo conforme → dominio `PokemonSpecies`; 404 →
+// `risorsa non trovata`; timeout/errore di rete → `errore di rete`; corpo non
+// conforme → `risposta HTTP non valida`. La rete è sempre mockata (nessuna rete
+// reale). Devono FALLIRE finché `getSpecies` non è implementato sul client.
+// _Requirements: 5.1, 5.5, 5.7_
+
+/**
+ * Un corpo `PokemonSpeciesRaw` conforme: contiene almeno una voce di flavor text
+ * in lingua inglese. Il dominio atteso è `{ id, flavorText }` con il testo
+ * normalizzato (spazi/a-capo compattati).
+ */
+const conformingSpeciesBody = {
+  id: 25,
+  flavor_text_entries: [
+    {
+      flavor_text: 'When several of\nthese POKéMON\fgather, their',
+      language: { name: 'en' },
+    },
+    {
+      flavor_text: 'Quando molti di questi POKéMON si radunano',
+      language: { name: 'it' },
+    },
+  ],
+} as const;
+
+describe('PokeApiClient.getSpecies', () => {
+  it('restituisce la Descrizione_Pokedex di dominio per una risposta 200 conforme', async () => {
+    const mock = createMockFetch({
+      ok: true,
+      status: 200,
+      body: conformingSpeciesBody,
+    });
+    const client = createPokeApiClient({ fetchFn: mock.fetchFn });
+
+    const result = await client.getSpecies(25);
+
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.id).toBe(25);
+      expect(result.value.flavorText).toBe(
+        'When several of these POKéMON gather, their',
+      );
+    }
+  });
+
+  it('restituisce "risorsa non trovata" con stato 404 e identificatore per un 404', async () => {
+    const mock = createMockFetch({ ok: false, status: 404 });
+    const client = createPokeApiClient({ fetchFn: mock.fetchFn });
+
+    const result = await client.getSpecies(99999);
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.category).toBe('risorsa non trovata');
+      expect(result.error.httpStatus).toBe(404);
+      expect(result.error.identifier).toBe(99999);
+    }
+  });
+
+  it('restituisce "errore di rete" quando la fetch rigetta', async () => {
+    const mock = createRejectingFetch();
+    const client = createPokeApiClient({ fetchFn: mock.fetchFn });
+
+    const result = await client.getSpecies(25);
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.category).toBe('errore di rete');
+    }
+  });
+
+  it('restituisce "risposta HTTP non valida" per un corpo 2xx non conforme', async () => {
+    const mock = createMockFetch({
+      ok: true,
+      status: 200,
+      body: { id: 'non un numero' },
+    });
+    const client = createPokeApiClient({ fetchFn: mock.fetchFn });
+
+    const result = await client.getSpecies(25);
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.category).toBe('risposta HTTP non valida');
+    }
+  });
+});

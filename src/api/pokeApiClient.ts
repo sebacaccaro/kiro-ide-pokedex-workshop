@@ -11,10 +11,18 @@
 //
 // _Requirements: 1.x, 2.x, 3.1, 3.2, 3.4, 4.x, 6.1, 6.2_
 
-import type { Pokemon, PokemonListPage } from '../types/pokemon';
+import type {
+  Pokemon,
+  PokemonListPage,
+  PokemonSpecies,
+} from '../types/pokemon';
 import { PokeApiConfigError, type PokeApiError, type Result } from './errors';
-import { mapListPage, mapPokemon } from './mappers';
-import { parseListPageRaw, parsePokemonRaw } from './parse';
+import { mapListPage, mapPokemon, mapPokemonSpecies } from './mappers';
+import {
+  parseListPageRaw,
+  parsePokemonRaw,
+  parsePokemonSpeciesRaw,
+} from './parse';
 import { buildQuery, buildUrl } from './url';
 import {
   isValidBaseUrl,
@@ -54,6 +62,7 @@ export interface ListParams {
 export interface PokeApiClient {
   get(identifier: string | number): Promise<Result<Pokemon>>;
   list(params?: ListParams): Promise<Result<PokemonListPage>>;
+  getSpecies(id: number): Promise<Result<PokemonSpecies>>;
 }
 
 /** Base_URL predefinito: endpoint pubblico delle PokéAPI (Requirement 3.2). */
@@ -220,5 +229,40 @@ export function createPokeApiClient(
     return { ok: true, value: mapListPage(raw) };
   }
 
-  return { get, list };
+  async function getSpecies(id: number): Promise<Result<PokemonSpecies>> {
+    const validated = validateIdentifier(id);
+    if (!validated.ok) {
+      return validated;
+    }
+
+    const url = buildUrl(baseUrl, 'pokemon-species', validated.value);
+    const fetched = await fetchWithTimeout(fetchFn, timeoutMs, url);
+    if (!fetched.ok) {
+      return fetched;
+    }
+
+    const response = fetched.value;
+    if (response.status === HTTP_NOT_FOUND) {
+      return { ok: false, error: notFoundError(id) };
+    }
+    if (!response.ok) {
+      return { ok: false, error: httpStatusError(response.status) };
+    }
+
+    let body: unknown;
+    try {
+      body = await response.json();
+    } catch {
+      return { ok: false, error: invalidBodyError() };
+    }
+
+    const raw = parsePokemonSpeciesRaw(body);
+    if (raw === null) {
+      return { ok: false, error: invalidBodyError() };
+    }
+
+    return { ok: true, value: mapPokemonSpecies(raw) };
+  }
+
+  return { get, list, getSpecies };
 }

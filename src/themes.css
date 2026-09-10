@@ -637,3 +637,176 @@ img {
 .pokedex-sprite {
   filter: var(--sprite-filter);
 }
+
+/* ========================================================================== */
+/* Toggle_Cattura (Poké Ball) e Animazione_Cattura                            */
+/* ========================================================================== */
+
+/*
+ * Aspetto della Poké Ball guidato dal tema. Come per il resto dell'app, JS
+ * conosce solo lo stato (`data-captured`, `data-animating`) e il tema è
+ * selezionato da `data-theme` sull'elemento radice: nessuna dipendenza JS dal
+ * tema (Req 6.1, 6.2, 6.4). Il Tema_Rosso è anche la base predefinita, quindi
+ * un tema sconosciuto eredita l'aspetto rosso (Req 6.4).
+ *
+ * Le variabili `--pokeball-*` sono definite qui come default (aspetto rosso) e
+ * ridefinite sotto `[data-theme='diamante']`; il resto delle regole consuma
+ * solo le variabili, così lo stesso markup rende in entrambi i temi.
+ */
+
+.capture-toggle {
+  /* Colori della Poké Ball — default: aspetto del Tema_Rosso (Req 6.1, 6.4). */
+  --pokeball-top: #e3350d; /* calotta superiore rossa */
+  --pokeball-top-shade: #b71c0a;
+  --pokeball-bottom: #f5f5f5; /* metà inferiore bianca */
+  --pokeball-band: #1b1b1b; /* banda centrale */
+  --pokeball-button: #ffffff; /* pulsante centrale */
+  --pokeball-button-ring: #1b1b1b;
+  --pokeball-size: 28px;
+
+  flex: none;
+  width: var(--pokeball-size);
+  height: var(--pokeball-size);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  /* La sfera è disegnata interamente in CSS (nessuna immagine esterna). */
+  background-image:
+    /* pulsante centrale */
+    radial-gradient(
+      circle at 50% 50%,
+      var(--pokeball-button) 0 16%,
+      var(--pokeball-button-ring) 16% 22%,
+      transparent 22%
+    ),
+    /* banda centrale orizzontale */
+    linear-gradient(
+      to bottom,
+      transparent 0 44%,
+      var(--pokeball-band) 44% 56%,
+      transparent 56%
+    ),
+    /* metà inferiore bianca */
+    linear-gradient(to bottom, transparent 0 50%, var(--pokeball-bottom) 50%),
+    /* metà superiore colorata */
+    linear-gradient(to bottom, var(--pokeball-top) 0 50%, transparent 50%);
+  box-shadow:
+    inset 0 0 0 2px var(--pokeball-band),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.25),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.35);
+
+  /*
+   * Transizione dell'opacità: copre sia l'annullamento (deve scendere a 0,4
+   * entro 200 ms, Req 3.2) sia l'aggiornamento visivo coerente al cambio di
+   * tema entro 300 ms (Req 6.3). 180 ms rispetta entrambe le soglie.
+   */
+  transition:
+    opacity 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease,
+    background-image 180ms ease;
+}
+
+/* Stato_Non_Catturato: Poké Ball semitrasparente, opacità 0,4 (Req 1.2). */
+.capture-toggle[data-captured='false'] {
+  opacity: 0.4;
+}
+
+/* Stato_Catturato: Poké Ball piena, opacità 1,0 (Req 1.3, 2.3). */
+.capture-toggle[data-captured='true'] {
+  opacity: 1;
+}
+
+.capture-toggle:hover {
+  transform: scale(1.08);
+}
+
+.capture-toggle:focus-visible {
+  outline: 2px solid var(--pokeball-top);
+  outline-offset: 2px;
+}
+
+/*
+ * Animazione_Cattura: attiva finché il componente espone `data-animating`.
+ * La durata (700 ms) rientra nella finestra prevista 300–2000 ms (Req 2.2) ed è
+ * allineata al default `animationMs` del CaptureToggle. L'animazione è puramente
+ * di presentazione; il passaggio a Stato_Catturato è deciso dal componente al
+ * termine del timer.
+ */
+.capture-toggle[data-animating='true'] {
+  animation: capture-shake 700ms ease-in-out both;
+}
+
+/*
+ * Oscillazioni tipiche della cattura nei giochi: la Poké Ball dondola e pulsa,
+ * con un lampo finale del pulsante centrale (a conferma della cattura).
+ */
+@keyframes capture-shake {
+  0% {
+    transform: translateY(-40%) scale(0.9) rotate(0deg);
+  }
+  15% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  30% {
+    transform: rotate(-18deg);
+  }
+  45% {
+    transform: rotate(16deg);
+  }
+  60% {
+    transform: rotate(-12deg);
+  }
+  72% {
+    transform: rotate(8deg);
+  }
+  82% {
+    transform: rotate(0deg) scale(1);
+  }
+  90% {
+    transform: scale(1.18);
+    filter: brightness(1.6);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+/*
+ * Tema_Diamante: aspetto moderno della Poké Ball (dominante blu coerente con il
+ * tema) e animazione con lo stesso ritmo (Req 6.2). Solo le variabili cambiano,
+ * il markup e la geometria restano identici.
+ */
+[data-theme='diamante'] .capture-toggle {
+  --pokeball-top: #3d6bd6; /* calotta blu, coerente con --device-shell-light */
+  --pokeball-top-shade: #2a4b8d;
+  --pokeball-bottom: #ffffff;
+  --pokeball-band: #10233f;
+  --pokeball-button: #eef3fb;
+  --pokeball-button-ring: #10233f;
+  --pokeball-size: 30px;
+  box-shadow:
+    inset 0 0 0 2px var(--pokeball-band),
+    inset -3px -3px 6px rgba(16, 35, 63, 0.25),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.5),
+    0 1px 3px rgba(16, 35, 63, 0.2);
+}
+
+/*
+ * Rispetto delle preferenze di riduzione del movimento: niente scuotimento, ma
+ * si conserva la durata così il componente resta "busy" per il tempo previsto e
+ * il passaggio a Stato_Catturato avviene comunque al termine (Req 2.2).
+ */
+@media (prefers-reduced-motion: reduce) {
+  .capture-toggle[data-animating='true'] {
+    animation: capture-fade 700ms ease both;
+  }
+
+  @keyframes capture-fade {
+    100% {
+      opacity: 1;
+    }
+  }
+}

@@ -2,11 +2,13 @@ import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
 
 import type { Pokemon, PokemonListPage } from '../../types/pokemon';
-import { mapListPage, mapPokemon } from '../mappers';
+import { mapListPage, mapPokemon, mapPokemonSpecies } from '../mappers';
 import type {
   AbilityEntryRaw,
+  FlavorTextEntryRaw,
   PokemonListPageRaw,
   PokemonRaw,
+  PokemonSpeciesRaw,
   TypeEntryRaw,
 } from '../raw';
 
@@ -404,5 +406,225 @@ describe('mapListPage — proprietà', () => {
       }),
       { numRuns: 100 },
     );
+  });
+});
+// Property-based test (fast-check) per il mapping della Descrizione_Pokedex.
+// La forma grezza `pokemon-species` contiene molte voci di flavor text (per
+// lingua/versione), con spazi e a-capo "grezzi" (es. \n, \f, spazi multipli).
+// `mapPokemonSpecies` seleziona in modo deterministico il testo (preferendo la
+// lingua inglese), lo normalizza (compattando spazi/a-capo) e ripiega su stringa
+// vuota quando non c'è testo utile.
+describe('mapPokemonSpecies (property-based)', () => {
+  // Testo di flavor "grezzo" plausibile: parole separate da spazi, a-capo,
+  // form-feed e tabulazioni, come nei corpi reali delle PokéAPI.
+  const word: fc.Arbitrary<string> = fc
+    .string({ minLength: 1, maxLength: 8 })
+    .map((s) => s.replace(/[^a-zA-Z0-9]/g, 'a'))
+    .filter((s) => s.length > 0);
+
+  const rawWhitespace: fc.Arbitrary<string> = fc.constantFrom(
+    ' ',
+    '\n',
+    '\f',
+    '\t',
+    '  ',
+    ' \n',
+    '\n\f',
+  );
+
+  // Un testo di flavor non vuoto: almeno una parola, con separatori grezzi.
+  const nonEmptyFlavorText: fc.Arbitrary<string> = fc
+    .array(word, { minLength: 1, maxLength: 6 })
+    .chain((words) =>
+      fc
+        .array(rawWhitespace, { minLength: words.length, maxLength: words.length })
+        .map((seps) => words.map((w, i) => `${seps[i]}${w}`).join('')),
+    );
+
+  // Lingua non inglese arbitraria (diversa da 'en').
+  const nonEnLanguage: fc.Arbitrary<string> = fc.constantFrom(
+    'ja',
+    'fr',
+    'de',
+    'it',
+    'es',
+    'ko',
+  );
+
+  // Voce con lingua inglese e testo non vuoto (grezzo).
+  const enEntry: fc.Arbitrary<FlavorTextEntryRaw> = nonEmptyFlavorText.map(
+    (text) => ({ flavor_text: text, language: { name: 'en' } }),
+  );
+
+  // Voce con lingua non inglese e testo qualsiasi (anche vuoto).
+  const nonEnEntry: fc.Arbitrary<FlavorTextEntryRaw> = fc.record({
+    flavor_text: fc.string({ maxLength: 30 }),
+    language: fc.record({ name: nonEnLanguage }),
+  });
+
+  // Feature: pokemon-capture-toggle, Property 8: Selezione e normalizzazione del flavor text
+  // Validates: Requirements 5.2, 5.6, 5.7
+  it('seleziona un testo inglese non vuoto, normalizzato, derivato dalla sorgente; stringa vuota se nessun testo utile', () => {
+    // Caso A: esiste almeno una voce inglese con testo non vuoto.
+    const speciesWithEn: fc.Arbitrary<PokemonSpeciesRaw> = fc
+      .tuple(
+        fc.integer({ min: 1, max: 100000 }),
+        fc.array(nonEnEntry, { maxLength: 4 }),
+        enEntry,
+        fc.array(fc.oneof(nonEnEntry, enEntry), { maxLength: 4 }),
+      )
+      .map(([id, before, guaranteedEn, after]) => ({
+        id,
+        flavor_text_entries: [...before, guaranteedEn, ...after],
+      }));
+
+    // Testo normalizzato di riferimento: spazi/a-capo grezzi compattati in
+    // singoli spazi, senza spazi ai bordi.
+    const normalize = (text: string): string =>
+      text.replace(/\s+/g, ' ').trim();
+
+    fc.assert(
+      fc.property(speciesWithEn, (raw) => {
+        const result = mapPokemonSpecies(raw);
+
+        // Il flavorText è non vuoto (esiste testo inglese utile).
+        expect(result.flavorText.length).toBeGreaterThan(0);
+
+        // È privo di sequenze grezze di spazi/a-capo: nessun doppio spazio,
+        // nessun a-capo/tab/form-feed, nessuno spazio ai bordi.
+        expect(result.flavorText).toBe(result.flavorText.trim());
+        expect(/\s{2,}/.test(result.flavorText)).toBe(false);
+        expect(/[\n\f\t\r]/.test(result.flavorText)).toBe(false);
+
+        // Deriva da una voce presente nell'input: la sua forma normalizzata
+        // coincide con la normalizzazione di uno dei flavor_text di origine.
+        const normalizedSources = raw.flavor_text_entries.map((entry) =>
+          normalize(entry.flavor_text),
+        );
+        expect(normalizedSources).toContain(result.flavorText);
+
+        // L'id di dominio preserva l'id grezzo.
+        expect(result.id).toBe(raw.id);
+      }),
+      { numRuns: 100 },
+    );
+
+    // Caso B: nessun testo utile (nessuna voce oppure tutte con testo vuoto/whitespace).
+    const speciesWithoutText: fc.Arbitrary<PokemonSpeciesRaw> = fc.record({
+      id: fc.integer({ min: 1, max: 100000 }),
+      flavor_text_entries: fc.array(
+        fc.record({
+          flavor_text: fc.constantFrom('', ' ', '\n', '\t', '  \n '),
+          language: fc.record({ name: fc.constantFrom('en', 'ja', 'fr') }),
+        }),
+        { maxLength: 5 },
+      ),
+    });
+
+    fc.assert(
+      fc.property(speciesWithoutText, (raw) => {
+        const result = mapPokemonSpecies(raw);
+
+        // Nessun testo utile → stringa vuota (Req 5.6).
+        expect(result.flavorText).toBe('');
+        expect(result.id).toBe(raw.id);
+      }),
+      { numRuns: 100 },
+    );
+  });
+});
+
+// Unit test (esempi) per il mapping della Descrizione_Pokedex.
+// `mapPokemonSpecies` traduce la forma grezza `pokemon-species` nel tipo di
+// dominio `PokemonSpecies`. La selezione del flavor text è deterministica:
+// preferisce la prima voce in lingua inglese, normalizza spazi/a-capo, ripiega
+// sulla prima voce disponibile se non c'è testo inglese e restituisce stringa
+// vuota quando non c'è alcun testo utile. Nessun accesso alla rete.
+// _Requirements: 5.2, 5.6, 5.7_
+describe('mapPokemonSpecies', () => {
+  it('preserva l’id di dominio dalla forma grezza', () => {
+    const raw: PokemonSpeciesRaw = {
+      id: 25,
+      flavor_text_entries: [
+        { flavor_text: 'Loves to eat apples.', language: { name: 'en' } },
+      ],
+    };
+
+    const result = mapPokemonSpecies(raw);
+
+    expect(result.id).toBe(25);
+  });
+
+  it('preferisce la prima voce in lingua inglese anche se non è la prima in assoluto', () => {
+    const raw: PokemonSpeciesRaw = {
+      id: 25,
+      flavor_text_entries: [
+        { flavor_text: 'ピカチュウの説明。', language: { name: 'ja' } },
+        { flavor_text: 'Description française.', language: { name: 'fr' } },
+        { flavor_text: 'The correct english text.', language: { name: 'en' } },
+        { flavor_text: 'A later english entry.', language: { name: 'en' } },
+      ],
+    };
+
+    const result = mapPokemonSpecies(raw);
+
+    expect(result.flavorText).toBe('The correct english text.');
+  });
+
+  it('normalizza spazi multipli, a-capo, form-feed e tab in singoli spazi e rimuove i bordi', () => {
+    const raw: PokemonSpeciesRaw = {
+      id: 6,
+      flavor_text_entries: [
+        {
+          flavor_text: '  Spits\nfire that\fis hot\tenough   to melt   boulders.  ',
+          language: { name: 'en' },
+        },
+      ],
+    };
+
+    const result = mapPokemonSpecies(raw);
+
+    expect(result.flavorText).toBe(
+      'Spits fire that is hot enough to melt boulders.',
+    );
+  });
+
+  it('ripiega sulla prima voce disponibile quando non esiste testo in inglese', () => {
+    const raw: PokemonSpeciesRaw = {
+      id: 1,
+      flavor_text_entries: [
+        { flavor_text: 'Prima\nvoce  non inglese.', language: { name: 'ja' } },
+        { flavor_text: 'Seconde entrée.', language: { name: 'fr' } },
+      ],
+    };
+
+    const result = mapPokemonSpecies(raw);
+
+    expect(result.flavorText).toBe('Prima voce non inglese.');
+  });
+
+  it('restituisce stringa vuota quando non ci sono voci di flavor text', () => {
+    const raw: PokemonSpeciesRaw = {
+      id: 132,
+      flavor_text_entries: [],
+    };
+
+    const result = mapPokemonSpecies(raw);
+
+    expect(result.flavorText).toBe('');
+  });
+
+  it('restituisce stringa vuota quando tutte le voci contengono solo spazi/a-capo', () => {
+    const raw: PokemonSpeciesRaw = {
+      id: 133,
+      flavor_text_entries: [
+        { flavor_text: '   ', language: { name: 'en' } },
+        { flavor_text: '\n\t\f', language: { name: 'ja' } },
+      ],
+    };
+
+    const result = mapPokemonSpecies(raw);
+
+    expect(result.flavorText).toBe('');
   });
 });

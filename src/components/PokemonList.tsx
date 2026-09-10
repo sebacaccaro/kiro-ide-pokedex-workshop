@@ -10,6 +10,15 @@ export interface PokemonListProps {
   readonly onSelect: (id: number) => void;
   /** Invocata quando la sentinella entra nel viewport (infinite scroll, Req 1.4). */
   readonly onReachEnd: () => void;
+  /**
+   * Predicato dello Stato_Catturato per voce, dalla Vista_Elenco (Req 1.1).
+   * Quando fornito insieme ai comandi, ogni voce rende il Toggle_Cattura.
+   */
+  readonly isCaptured?: (id: number) => boolean;
+  /** Comando di cattura per voce, dalla Vista_Elenco/`useCaptures` (Req 1.1). */
+  readonly onCapture?: (id: number) => void;
+  /** Comando di annullamento cattura per voce (Req 1.1, 3.1). */
+  readonly onUncapture?: (id: number) => void;
 }
 
 /**
@@ -22,7 +31,12 @@ export function PokemonList({
   isLoadingMore,
   onSelect,
   onReachEnd,
+  isCaptured,
+  onCapture,
+  onUncapture,
 }: PokemonListProps): JSX.Element {
+  const hasCaptureCommands =
+    onCapture !== undefined && onUncapture !== undefined;
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -52,6 +66,11 @@ export function PokemonList({
           entry={entry}
           isSelected={false}
           onSelect={onSelect}
+          isCaptured={
+            hasCaptureCommands ? (isCaptured?.(entry.id) ?? false) : undefined
+          }
+          onCapture={hasCaptureCommands ? onCapture : undefined}
+          onUncapture={hasCaptureCommands ? onUncapture : undefined}
         />
       ))}
       {isLoadingMore ? (

@@ -35,3 +35,13 @@ export interface PokemonListPage {
   readonly previous: string | null;
   readonly results: readonly ResourceReference[];
 }
+
+/** Descrizione_Pokedex come tipo di dominio (Req 5.7). */
+export interface PokemonSpecies {
+  readonly id: number;
+  /**
+   * Flavor text selezionato e normalizzato (spazi/a-capo compattati).
+   * Stringa vuota se la specie non contiene testo → "non disponibile" (Req 5.6).
+   */
+  readonly flavorText: string;
+}

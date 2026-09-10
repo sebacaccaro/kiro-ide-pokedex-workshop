@@ -67,9 +67,13 @@ function createListClient(
     return Promise.resolve(response);
   });
   const get = vi.fn(() => Promise.resolve(fail('risorsa non trovata')));
+  const getSpecies = vi.fn(() =>
+    Promise.resolve({ ok: true as const, value: { id: 0, flavorText: '' } }),
+  );
   const client: PokeApiClient = {
     list: list as unknown as PokeApiClient['list'],
     get: get as unknown as PokeApiClient['get'],
+    getSpecies: getSpecies as unknown as PokeApiClient['getSpecies'],
   };
   return { client, list };
 }

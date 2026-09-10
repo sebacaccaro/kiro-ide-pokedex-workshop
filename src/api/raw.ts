@@ -44,3 +44,15 @@ export interface PokemonListPageRaw {
   readonly previous: string | null;
   readonly results: readonly ResourceReferenceRaw[];
 }
+
+/** Voce di flavor text: solo i campi consumati (Req 5.1). */
+export interface FlavorTextEntryRaw {
+  readonly flavor_text: string;
+  readonly language: { readonly name: string };
+}
+
+/** Forma grezza di pokemon-species (campi consumati) (Req 5.1, 5.7). */
+export interface PokemonSpeciesRaw {
+  readonly id: number;
+  readonly flavor_text_entries: readonly FlavorTextEntryRaw[];
+}

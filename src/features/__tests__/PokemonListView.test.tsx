@@ -2,19 +2,22 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import type { JSX, ReactElement, ReactNode } from 'react';
+
 import type { PokeApiError, Result } from '../../api/errors';
 import type { PokeApiClient } from '../../api/pokeApiClient';
 import type { Pokemon, PokemonListPage } from '../../types/pokemon';
+import { CaptureProvider, type CaptureStorage } from '../CaptureProvider';
 import { PokemonListView } from '../PokemonListView';
 
 // Test dei componenti (RTL) per la Vista_Elenco (PokemonListView).
-// Fase RED del TDD (task 13.1): `src/features/PokemonListView.tsx` NON esiste
-// ancora (implementazione nel task 13.2). Questi test descrivono il
-// comportamento atteso della vista che collega `usePokemonList` a `PokemonList`
-// e sceglie cosa mostrare tra Stato_Caricamento, Stato_Errore, Stato_Vuoto e i
-// dati. Il client PokéAPI è mockato con vi.fn(): nessuna rete reale, test
-// deterministici.
-// _Requirements: 1.6, 2.1, 2.3, 2.4, 2.6_
+// La vista collega `usePokemonList` a `PokemonList` e sceglie cosa mostrare tra
+// Stato_Caricamento, Stato_Errore, Stato_Vuoto e i dati. Cabla inoltre
+// `useCaptures` per passare a ogni voce lo Stato_Catturato e i comandi di
+// cattura/annullamento (Toggle_Cattura). Il client PokéAPI è mockato con
+// vi.fn() (nessuna rete reale) e il Gestore_Catture usa uno Store_Catture
+// in-memory iniettato, così i test sono deterministici.
+// _Requirements: 1.1, 1.6, 2.1, 2.3, 2.4, 2.6, 3.2_
 
 // --- Fixture e helper -------------------------------------------------------
 
@@ -82,7 +85,48 @@ function createMockClient(listImpl: PokeApiClient['list']): {
       error: networkError,
     } as Result<Pokemon>),
   );
-  return { client: { get, list }, list };
+  const getSpecies = vi.fn<PokeApiClient['getSpecies']>(() =>
+    Promise.resolve({ ok: true, value: { id: 0, flavorText: '' } }),
+  );
+  return { client: { get, list, getSpecies }, list };
+}
+
+/**
+ * Store_Catture in-memory iniettato nel CaptureProvider: nessuna dipendenza da
+ * localStorage reale, letture/scritture deterministiche (Req 4.8).
+ */
+function createMemoryStorage(initial: string | null = null): CaptureStorage & {
+  readonly writes: readonly string[];
+} {
+  let value: string | null = initial;
+  const writes: string[] = [];
+  return {
+    read(): string | null {
+      return value;
+    },
+    write(next: string): void {
+      value = next;
+      writes.push(next);
+    },
+    get writes(): readonly string[] {
+      return writes;
+    },
+  };
+}
+
+/**
+ * Rende la Vista_Elenco avvolta dal CaptureProvider con lo Store_Catture
+ * iniettato: la vista richiede `useCaptures`, quindi deve vivere dentro un
+ * provider.
+ */
+function renderListView(
+  ui: ReactElement,
+  storage: CaptureStorage = createMemoryStorage(null),
+): ReturnType<typeof render> {
+  function Wrapper({ children }: { readonly children: ReactNode }): JSX.Element {
+    return <CaptureProvider storage={storage}>{children}</CaptureProvider>;
+  }
+  return render(ui, { wrapper: Wrapper });
 }
 
 beforeEach(() => {
@@ -101,7 +145,7 @@ describe('PokemonListView', () => {
       () => new Promise<Result<PokemonListPage>>(() => {}),
     );
 
-    render(<PokemonListView client={client} onSelect={vi.fn()} />);
+    renderListView(<PokemonListView client={client} onSelect={vi.fn()} />);
 
     // Nessuna voce ancora mostrata -> LoadingIndicator (role="status").
     expect(screen.getByRole('status')).toBeInTheDocument();
@@ -112,7 +156,7 @@ describe('PokemonListView', () => {
       Promise.resolve(failPage(networkError)),
     );
 
-    render(<PokemonListView client={client} onSelect={vi.fn()} />);
+    renderListView(<PokemonListView client={client} onSelect={vi.fn()} />);
 
     // Req 2.3: messaggio di errore (role="alert") che riporta la categoria.
     const alert = await screen.findByRole('alert');
@@ -131,7 +175,7 @@ describe('PokemonListView', () => {
       Promise.resolve(outOfRangePage),
     );
 
-    render(<PokemonListView client={client} onSelect={vi.fn()} />);
+    renderListView(<PokemonListView client={client} onSelect={vi.fn()} />);
 
     // Nessun errore né voci: deve comparire un messaggio di stato vuoto.
     await waitFor(() =>
@@ -145,7 +189,7 @@ describe('PokemonListView', () => {
     const onSelect = vi.fn();
     const { client } = createMockClient(() => Promise.resolve(firstGenPage));
 
-    render(<PokemonListView client={client} onSelect={onSelect} />);
+    renderListView(<PokemonListView client={client} onSelect={onSelect} />);
 
     // Attende che le voci siano rese, poi seleziona una riga.
     const charmander = await screen.findByText(/charmander/i);
@@ -153,5 +197,63 @@ describe('PokemonListView', () => {
     await user.click(charmander);
 
     expect(onSelect).toHaveBeenCalledWith(4);
+  });
+
+  it('rende un Toggle_Cattura per ogni voce con lo Stato_Catturato iniziale dal Gestore_Catture (Req 1.1, 3.2)', async () => {
+    const { client } = createMockClient(() => Promise.resolve(firstGenPage));
+    // Charmander (id 4) è già catturato nello Store iniettato.
+    const storage = createMemoryStorage('[4]');
+
+    renderListView(
+      <PokemonListView client={client} onSelect={vi.fn()} />,
+      storage,
+    );
+
+    await screen.findByText(/charmander/i);
+
+    // Un Toggle_Cattura per voce, con nome accessibile per lo stato.
+    expect(
+      screen.getByRole('button', { name: /Cattura bulbasaur/i }),
+    ).toHaveAttribute('data-captured', 'false');
+    expect(
+      screen.getByRole('button', {
+        name: /Annulla la cattura di charmander/i,
+      }),
+    ).toHaveAttribute('data-captured', 'true');
+  });
+
+  it('cattura un Pokémon dall\u0027Elenco aggiornando lo stato e persistendo (Req 1.1, 1.6, 2.3)', async () => {
+    const { client } = createMockClient(() => Promise.resolve(firstGenPage));
+    const onSelect = vi.fn();
+    const storage = createMemoryStorage(null);
+
+    renderListView(
+      <PokemonListView client={client} onSelect={onSelect} />,
+      storage,
+    );
+
+    await screen.findByText(/bulbasaur/i);
+
+    const user = userEvent.setup();
+    const toggle = screen.getByRole('button', { name: /Cattura bulbasaur/i });
+    expect(toggle).toHaveAttribute('data-captured', 'false');
+
+    await user.click(toggle);
+
+    // Al termine dell'Animazione_Cattura, la voce risulta catturata (opacità 1,0
+    // pilotata da data-captured) e lo Stato_Catturato è persistito (Req 2.3).
+    await waitFor(() =>
+      expect(
+        screen.getByRole('button', {
+          name: /Annulla la cattura di bulbasaur/i,
+        }),
+      ).toHaveAttribute('data-captured', 'true'),
+    );
+    await waitFor(() => expect(storage.writes.length).toBeGreaterThan(0));
+    const lastWrite = storage.writes[storage.writes.length - 1];
+    expect(JSON.parse(lastWrite)).toEqual([1]);
+
+    // Catturare non deve aver aperto il dettaglio (nessuna selezione).
+    expect(onSelect).not.toHaveBeenCalled();
   });
 });

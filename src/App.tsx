@@ -2,6 +2,7 @@ import { useCallback, useState, type ReactElement } from 'react';
 
 import type { PokeApiClient } from './api/pokeApiClient';
 import { ThemeSwitcher } from './components/ThemeSwitcher';
+import { CaptureProvider } from './features/CaptureProvider';
 import { PokemonDetailView } from './features/PokemonDetailView';
 import { PokemonListView } from './features/PokemonListView';
 import { ThemeProvider } from './features/ThemeProvider';
@@ -10,8 +11,10 @@ import { useTheme } from './hooks/useTheme';
 // Wiring dell'Applicazione: naviga tra Vista_Elenco e Vista_Dettaglio con uno
 // stato `Route` discriminato (nessun router: due sole viste, nessun deep-link),
 // avvolge entrambe le viste con il `ThemeProvider` (così il tema si applica a
-// entrambe, Req 5.5) e inietta il `Client_PokeAPI` propagandolo alle viste.
-// _Requirements: 1.6, 3.7, 5.5_
+// entrambe, Req 5.5) e con il `CaptureProvider` (così Elenco e Dettaglio
+// condividono lo stesso Gestore_Catture, Req 4.7); inietta il `Client_PokeAPI`
+// propagandolo alle viste.
+// _Requirements: 1.6, 3.7, 4.7, 5.5_
 
 export interface AppProps {
   /** Client PokéAPI iniettato e propagato alle viste (unico confine di rete). */
@@ -43,38 +46,40 @@ function App({ client }: AppProps): ReactElement {
 
   return (
     <ThemeProvider>
-      <main className="pokedex-app">
-        {/* Scocca del dispositivo Pokédex: decorativa, valorizzata dal tema.
-            Nel Tema_Rosso disegna la lente blu, le luci e il retino dello
-            speaker; nel Tema_Diamante resta neutra (barra superiore). */}
-        <div className="pokedex-device">
-          <div className="pokedex-device__top" aria-hidden="true">
-            <span className="pokedex-lens" />
-            <span className="pokedex-led pokedex-led--red" />
-            <span className="pokedex-led pokedex-led--yellow" />
-            <span className="pokedex-led pokedex-led--green" />
-          </div>
+      <CaptureProvider>
+        <main className="pokedex-app">
+          {/* Scocca del dispositivo Pokédex: decorativa, valorizzata dal tema.
+              Nel Tema_Rosso disegna la lente blu, le luci e il retino dello
+              speaker; nel Tema_Diamante resta neutra (barra superiore). */}
+          <div className="pokedex-device">
+            <div className="pokedex-device__top" aria-hidden="true">
+              <span className="pokedex-lens" />
+              <span className="pokedex-led pokedex-led--red" />
+              <span className="pokedex-led pokedex-led--yellow" />
+              <span className="pokedex-led pokedex-led--green" />
+            </div>
 
-          <div className="pokedex-device__body">
-            <header className="pokedex-header">
-              <span className="pokedex-title">Pokédex</span>
-              <ThemeControls />
-            </header>
+            <div className="pokedex-device__body">
+              <header className="pokedex-header">
+                <span className="pokedex-title">Pokédex</span>
+                <ThemeControls />
+              </header>
 
-            <div className="pokedex-screen">
-              {route.view === 'list' ? (
-                <PokemonListView client={client} onSelect={handleSelect} />
-              ) : (
-                <PokemonDetailView
-                  client={client}
-                  id={route.id}
-                  onBack={handleBack}
-                />
-              )}
+              <div className="pokedex-screen">
+                {route.view === 'list' ? (
+                  <PokemonListView client={client} onSelect={handleSelect} />
+                ) : (
+                  <PokemonDetailView
+                    client={client}
+                    id={route.id}
+                    onBack={handleBack}
+                  />
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </CaptureProvider>
     </ThemeProvider>
   );
 }

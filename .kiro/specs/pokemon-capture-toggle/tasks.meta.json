@@ -1,0 +1,652 @@
+{
+  "pbtResults": {
+    "3.4 (Red) Scrivere il property test per il mapping del flavor text": {
+      "status": "failed",
+      "failingExample": "Property failed after 1 tests\n{ seed: -1792355572, path: \"0:0:0:0:0:0:0\", endOnFailure: true }\nCounterexample: [{\"id\":1,\"flavor_text_entries\":[{\"flavor_text\":\" a\",\"language\":{\"name\":\"en\"}}]}]\nCaused by: TypeError: mapPokemonSpecies is not a function",
+      "lastRunTimestamp": 1788998888624
+    }
+  },
+  "executionHistory": {
+    "1.1 (Red) Scrivere i test unitari a esempio per il core catture": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998413965
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998422409
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998490257
+      }
+    ],
+    "1.3 (Green) Implementare `src/lib/captures.ts` con il minimo per far passare i test": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414029
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998631646
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998760688
+      }
+    ],
+    "2. Checkpoint — core catture verde": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414067
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998787169
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998793867
+      }
+    ],
+    "3.1 Aggiungere i tipi di dominio e Raw": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414128
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998424902
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998493224
+      }
+    ],
+    "3.2 (Red) Scrivere i test di parsing species": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414164
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998634225
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998763301
+      }
+    ],
+    "3.3 (Green) Implementare `parsePokemonSpeciesRaw` in `src/api/parse.ts`": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414201
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998799519
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998999311
+      }
+    ],
+    "3.6 (Green) Implementare `mapPokemonSpecies` in `src/api/mappers.ts`": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414251
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999025354
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999102758
+      }
+    ],
+    "3.7 (Red) Scrivere i test del client `getSpecies`": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414301
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998636861
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998765859
+      }
+    ],
+    "3.8 (Green) Implementare `getSpecies(id)` in `src/api/pokeApiClient.ts`": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414366
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998802321
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998807121
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999132059
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999306882
+      }
+    ],
+    "4. Checkpoint — confine di rete species verde": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414406
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999311699
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999353220
+      }
+    ],
+    "5.1 (Red) Scrivere i test di CaptureProvider/useCaptures": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414448
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998815640
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999009118
+      }
+    ],
+    "5.2 (Green) Implementare `src/features/CaptureProvider.tsx`": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414483
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999356737
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999915464
+      }
+    ],
+    "5.3 (Green) Implementare `src/hooks/useCaptures.ts`": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414548
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999925661
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000083308
+      }
+    ],
+    "6.1 (Red) Scrivere i test di `usePokemonSpecies`": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414589
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999928475
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000086379
+      }
+    ],
+    "6.2 (Green) Implementare `src/hooks/usePokemonSpecies.ts`": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414622
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000101403
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000278979
+      }
+    ],
+    "7. Checkpoint — stato, persistenza e fetch species verdi": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414663
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000432184
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000440624
+      }
+    ],
+    "8.1 (Red) Scrivere i test a esempio del Toggle_Cattura (animazione, busy, tastiera)": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414698
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998819123
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999012019
+      }
+    ],
+    "8.3 (Green) Implementare `src/components/CaptureToggle.tsx`": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414735
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999359504
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999912495
+      }
+    ],
+    "9.1 (Red) Estendere i test di PokemonListItem/PokemonList per il Toggle": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414766
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999362370
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999918276
+      }
+    ],
+    "9.2 (Green) Aggiornare `PokemonListItem` e `PokemonList`": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414805
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999931274
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000089257
+      }
+    ],
+    "9.3 (Green) Cablare `useCaptures` nella `PokemonListView`": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414861
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000104373
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000281981
+      }
+    ],
+    "10.1 (Red) Scrivere i test del componente di presentazione species": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414894
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999365072
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999922061
+      }
+    ],
+    "10.2 (Green) Implementare la presentazione della Descrizione_Pokedex": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414932
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999934061
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000092187
+      }
+    ],
+    "10.3 (Red) Estendere i test di PokemonDetailView per il gating della richiesta": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998414965
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999936929
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000095154
+      }
+    ],
+    "10.4 (Green) Cablare `usePokemonSpecies` + `useCaptures` in `PokemonDetailView`": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998415003
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000292400
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000427385
+      }
+    ],
+    "11. Checkpoint — presentazione e integrazioni verdi": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998415033
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000443499
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000476156
+      }
+    ],
+    "12.1 Definire l'aspetto di Poké Ball e Animazione_Cattura via CSS": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998415068
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000107417
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000285455
+      }
+    ],
+    "12.2 (Red) Scrivere il test di wiring del CaptureProvider in App": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998415098
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000110316
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000288447
+      }
+    ],
+    "12.3 (Green) Cablare `CaptureProvider` in `src/App.tsx`": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998415153
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000480685
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000545827
+      }
+    ],
+    "13. Checkpoint finale — tutti i test verdi": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998415224
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000549457
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000647531
+      }
+    ],
+    "14. Aggiornare il README (convenzione workshop)": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998415273
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000650726
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789001201116
+      }
+    ],
+    "1.2 (Red) Scrivere i property test per il core catture": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998519437
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998628364
+      }
+    ],
+    "1. Core puro del Gestore_Catture (`src/lib/captures.ts`) — TDD": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998760733
+      }
+    ],
+    "3.4 (Red) Scrivere il property test per il mapping del flavor text": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998810003
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999002151
+      }
+    ],
+    "3.5 (Red) Scrivere i test a esempio per il mapping species": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788998812821
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999005064
+      }
+    ],
+    "8.2 (Red) Scrivere i property test di rendering del Toggle_Cattura": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999028153
+      },
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999105854
+      }
+    ],
+    "3. Confine di rete: Descrizione_Pokedex in `src/api/` — TDD": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999306960
+      }
+    ],
+    "8. Presentazione: Toggle_Cattura (`src/components/CaptureToggle.tsx`) — TDD": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1788999912557
+      }
+    ],
+    "5. Stato + persistenza: Store_Catture e `useCaptures` — TDD": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000083415
+      }
+    ],
+    "6. Hook di fetch della Descrizione_Pokedex (`src/hooks/usePokemonSpecies.ts`) — TDD": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000279065
+      }
+    ],
+    "9. Integrazione del Toggle nell'Elenco": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000282022
+      }
+    ],
+    "10. Integrazione della Descrizione_Pokedex nel Dettaglio": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000427434
+      }
+    ],
+    "12. Aspetto per tema (CSS) e wiring finale": [
+      {
+        "executionId": "759e4088-4674-483c-ac28-3a9c2372ec32",
+        "chatSessionId": "sess_84dc6e17-5f0e-482a-a94f-8f2baebbbd02",
+        "timestamp": 1789000545922
+      }
+    ]
+  }
+}

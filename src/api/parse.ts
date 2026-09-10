@@ -9,8 +9,10 @@
 
 import type {
   AbilityEntryRaw,
+  FlavorTextEntryRaw,
   PokemonListPageRaw,
   PokemonRaw,
+  PokemonSpeciesRaw,
   PokemonSpritesRaw,
   ResourceReferenceRaw,
   TypeEntryRaw,
@@ -153,6 +155,47 @@ export function parsePokemonRaw(body: unknown): PokemonRaw | null {
     abilities,
     types,
     sprites: parseSprites(body.sprites),
+  };
+}
+
+function parseFlavorTextEntry(value: unknown): FlavorTextEntryRaw | null {
+  if (!isRecord(value)) {
+    return null;
+  }
+  if (!isString(value.flavor_text)) {
+    return null;
+  }
+  if (!isNamedReference(value.language)) {
+    return null;
+  }
+  return {
+    flavor_text: value.flavor_text,
+    language: { name: value.language.name },
+  };
+}
+
+/** Restituisce il Raw se il corpo è conforme, altrimenti null. Niente any. */
+export function parsePokemonSpeciesRaw(
+  body: unknown,
+): PokemonSpeciesRaw | null {
+  if (!isRecord(body)) {
+    return null;
+  }
+  if (!isNumber(body.id)) {
+    return null;
+  }
+
+  const flavorTextEntries = parseArray(
+    body.flavor_text_entries,
+    parseFlavorTextEntry,
+  );
+  if (flavorTextEntries === null) {
+    return null;
+  }
+
+  return {
+    id: body.id,
+    flavor_text_entries: flavorTextEntries,
   };
 }
 

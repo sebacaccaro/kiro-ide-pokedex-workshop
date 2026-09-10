@@ -12,13 +12,16 @@ import type {
   Pokemon,
   PokemonAbility,
   PokemonListPage,
+  PokemonSpecies,
   PokemonType,
   ResourceReference,
 } from '../types/pokemon';
 import type {
   AbilityEntryRaw,
+  FlavorTextEntryRaw,
   PokemonListPageRaw,
   PokemonRaw,
+  PokemonSpeciesRaw,
   ResourceReferenceRaw,
   TypeEntryRaw,
 } from './raw';
@@ -66,5 +69,35 @@ export function mapListPage(raw: PokemonListPageRaw): PokemonListPage {
     next: raw.next,
     previous: raw.previous,
     results: raw.results.map(mapReference),
+  };
+}
+
+/**
+ * Compatta ogni sequenza di spazi/a-capo (spazi multipli, `\n`, `\f`, `\t`, ...)
+ * in un singolo spazio e rimuove gli spazi ai bordi.
+ */
+function normalizeFlavorText(text: string): string {
+  return text.replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Traduce una `PokemonSpeciesRaw` nel tipo di dominio `PokemonSpecies`.
+ *
+ * Selezione deterministica del flavor text: preferisce la prima voce in lingua
+ * inglese (`language.name === 'en'`), altrimenti ripiega sulla prima voce
+ * disponibile. Il testo scelto viene normalizzato (spazi/a-capo compattati). Se
+ * nessuna voce produce testo utile, `flavorText` è la stringa vuota (Req 5.6).
+ */
+export function mapPokemonSpecies(raw: PokemonSpeciesRaw): PokemonSpecies {
+  const entries = raw.flavor_text_entries;
+  const englishEntry = entries.find(
+    (entry: FlavorTextEntryRaw) => entry.language.name === 'en',
+  );
+  const selected = englishEntry ?? entries[0];
+  const flavorText = selected ? normalizeFlavorText(selected.flavor_text) : '';
+
+  return {
+    id: raw.id,
+    flavorText,
   };
 }

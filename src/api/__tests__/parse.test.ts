@@ -1,8 +1,16 @@
 import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
 
-import { parseListPageRaw, parsePokemonRaw } from '../parse';
-import type { PokemonListPageRaw, PokemonRaw } from '../raw';
+import {
+  parseListPageRaw,
+  parsePokemonRaw,
+  parsePokemonSpeciesRaw,
+} from '../parse';
+import type {
+  PokemonListPageRaw,
+  PokemonRaw,
+  PokemonSpeciesRaw,
+} from '../raw';
 
 // Unit test (esempi) per il narrowing difensivo da `unknown` verso i tipi Raw.
 // Il narrowing parte da `unknown` (mai `any`): un corpo conforme viene
@@ -22,6 +30,15 @@ const conformingPokemon = {
     { ability: { name: 'lightning-rod' }, is_hidden: true, slot: 3 },
   ],
   types: [{ slot: 1, type: { name: 'electric' } }],
+};
+
+// Corpo species grezzo conforme, usato come base per i casi corrotti.
+const conformingSpecies = {
+  id: 25,
+  flavor_text_entries: [
+    { flavor_text: 'When several of these\nPOKéMON gather,', language: { name: 'en' } },
+    { flavor_text: 'Quando molti di questi POKéMON', language: { name: 'it' } },
+  ],
 };
 
 // Corpo pagina lista grezzo conforme, usato come base per i casi corrotti.
@@ -169,6 +186,102 @@ describe('parsePokemonRaw — sprite', () => {
 
     expect(result).not.toBeNull();
     expect(result?.sprites.front_default).toBeNull();
+  });
+});
+
+// Unit test (esempi) per il narrowing difensivo di `pokemon-species`.
+// Il confine non si fida della forma: un corpo conforme (id numerico e
+// `flavor_text_entries` array di voci con `flavor_text` stringa e
+// `language.name` stringa) viene restituito come Raw; qualsiasi campo mancante
+// o con tipo errato produce `null`, senza mai un dominio parziale.
+// _Requirements: 5.1, 5.7_
+describe('parsePokemonSpeciesRaw', () => {
+  it('restituisce il Raw quando il corpo è conforme', () => {
+    const body: unknown = conformingSpecies;
+
+    const result = parsePokemonSpeciesRaw(body);
+
+    const expected: PokemonSpeciesRaw = {
+      id: 25,
+      flavor_text_entries: [
+        {
+          flavor_text: 'When several of these\nPOKéMON gather,',
+          language: { name: 'en' },
+        },
+        {
+          flavor_text: 'Quando molti di questi POKéMON',
+          language: { name: 'it' },
+        },
+      ],
+    };
+    expect(result).toEqual(expected);
+  });
+
+  it('restituisce il Raw quando flavor_text_entries è vuoto', () => {
+    const body: unknown = { id: 1, flavor_text_entries: [] };
+
+    const expected: PokemonSpeciesRaw = { id: 1, flavor_text_entries: [] };
+    expect(parsePokemonSpeciesRaw(body)).toEqual(expected);
+  });
+
+  it('restituisce null quando il corpo non è un oggetto', () => {
+    expect(parsePokemonSpeciesRaw(null)).toBeNull();
+    expect(parsePokemonSpeciesRaw(undefined)).toBeNull();
+    expect(parsePokemonSpeciesRaw('species')).toBeNull();
+    expect(parsePokemonSpeciesRaw(25)).toBeNull();
+  });
+
+  it('restituisce null quando manca id', () => {
+    const { id, ...withoutId } = conformingSpecies;
+    const body: unknown = withoutId;
+
+    expect(parsePokemonSpeciesRaw(body)).toBeNull();
+  });
+
+  it('restituisce null quando manca flavor_text_entries', () => {
+    const { flavor_text_entries, ...withoutEntries } = conformingSpecies;
+    const body: unknown = withoutEntries;
+
+    expect(parsePokemonSpeciesRaw(body)).toBeNull();
+  });
+
+  it('restituisce null quando id ha un tipo errato', () => {
+    const body: unknown = { ...conformingSpecies, id: '25' };
+
+    expect(parsePokemonSpeciesRaw(body)).toBeNull();
+  });
+
+  it('restituisce null quando flavor_text_entries non è un array', () => {
+    const body: unknown = { ...conformingSpecies, flavor_text_entries: {} };
+
+    expect(parsePokemonSpeciesRaw(body)).toBeNull();
+  });
+
+  it('restituisce null quando flavor_text di una voce ha un tipo errato', () => {
+    const body: unknown = {
+      ...conformingSpecies,
+      flavor_text_entries: [{ flavor_text: 42, language: { name: 'en' } }],
+    };
+
+    expect(parsePokemonSpeciesRaw(body)).toBeNull();
+  });
+
+  it('restituisce null quando language.name di una voce ha un tipo errato', () => {
+    const body: unknown = {
+      ...conformingSpecies,
+      flavor_text_entries: [{ flavor_text: 'ok', language: { name: 42 } }],
+    };
+
+    expect(parsePokemonSpeciesRaw(body)).toBeNull();
+  });
+
+  it('restituisce null quando a una voce manca language', () => {
+    const body: unknown = {
+      ...conformingSpecies,
+      flavor_text_entries: [{ flavor_text: 'ok' }],
+    };
+
+    expect(parsePokemonSpeciesRaw(body)).toBeNull();
   });
 });
 

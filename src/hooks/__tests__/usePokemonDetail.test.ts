@@ -72,7 +72,10 @@ function createMockClient(getImpl: PokeApiClient['get']): {
       value: { count: 0, next: null, previous: null, results: [] },
     }),
   );
-  return { client: { get, list }, get };
+  const getSpecies = vi.fn<PokeApiClient['getSpecies']>(() =>
+    Promise.resolve({ ok: true, value: { id: 0, flavorText: '' } }),
+  );
+  return { client: { get, list, getSpecies }, get };
 }
 
 afterEach(() => {

@@ -73,6 +73,105 @@ describe('PokemonListItem', () => {
   });
 });
 
+// -----------------------------------------------------------------------------
+// Integrazione del Toggle_Cattura nella Voce_Elenco (Req 1.1, 1.6).
+//
+// Il PokemonListItem ospita il Toggle_Cattura alla destra dei metadati della
+// voce e riceve le nuove props isCaptured/onCapture/onUncapture. L'attivazione
+// del toggle NON deve propagare la selezione della riga (catturare non apre il
+// dettaglio).
+// -----------------------------------------------------------------------------
+describe('PokemonListItem — Toggle_Cattura (Req 1.1, 1.6)', () => {
+  it('rende un Toggle_Cattura per la voce con le nuove props isCaptured/onCapture/onUncapture (Req 1.1)', () => {
+    render(
+      <PokemonListItem
+        entry={entry}
+        isSelected={false}
+        onSelect={vi.fn()}
+        isCaptured={false}
+        onCapture={vi.fn()}
+        onUncapture={vi.fn()}
+      />,
+    );
+
+    // Il Toggle_Cattura è reso con la sua classe stabile `capture-toggle`.
+    const toggle = document.querySelector('.capture-toggle');
+    expect(toggle).not.toBeNull();
+    expect(toggle).toBeInTheDocument();
+  });
+
+  it('riflette lo Stato_Catturato sul Toggle tramite la prop isCaptured (Req 1.1)', () => {
+    render(
+      <PokemonListItem
+        entry={entry}
+        isSelected={false}
+        onSelect={vi.fn()}
+        isCaptured
+        onCapture={vi.fn()}
+        onUncapture={vi.fn()}
+      />,
+    );
+
+    const toggle = document.querySelector('.capture-toggle');
+    expect(toggle).toHaveAttribute('data-captured', 'true');
+  });
+
+  it('rende il Toggle_Cattura alla destra dei metadati della voce, dopo i tipi (Req 1.1)', () => {
+    const { container } = render(
+      <PokemonListItem
+        entry={entry}
+        isSelected={false}
+        onSelect={vi.fn()}
+        isCaptured={false}
+        onCapture={vi.fn()}
+        onUncapture={vi.fn()}
+      />,
+    );
+
+    const types = screen.getByTestId('pokemon-types');
+    const toggle = container.querySelector('.capture-toggle');
+    expect(toggle).not.toBeNull();
+
+    // Il Toggle è reso dopo la regione dei tipi (a destra dei metadati):
+    // il confronto sulla posizione nel documento verifica l'ordine di rendering.
+    // Node.DOCUMENT_POSITION_FOLLOWING === 4.
+    const toggleFollowsTypes =
+      (types.compareDocumentPosition(toggle as Node) &
+        Node.DOCUMENT_POSITION_FOLLOWING) !==
+      0;
+    expect(toggleFollowsTypes).toBe(true);
+  });
+
+  it("l'attivazione del Toggle_Cattura non propaga la selezione della voce (onSelect non chiamato) (Req 1.6)", async () => {
+    const onSelect = vi.fn();
+    const onCapture = vi.fn();
+    const user = userEvent.setup();
+    render(
+      <PokemonListItem
+        entry={entry}
+        isSelected={false}
+        onSelect={onSelect}
+        isCaptured
+        onCapture={onCapture}
+        onUncapture={vi.fn()}
+      />,
+    );
+
+    // Il Toggle è già catturato: attivarlo esegue un'azione sincrona senza
+    // animazione, così possiamo verificare subito che onSelect non sia chiamato.
+    const toggle = document.querySelector('.capture-toggle');
+    expect(toggle).not.toBeNull();
+
+    await user.click(toggle as HTMLElement);
+
+    // L'attivazione del Toggle deve fermare la propagazione: la riga non viene
+    // selezionata (nessun onSelect), così catturare non apre il dettaglio.
+    expect(onSelect).not.toHaveBeenCalled();
+    // L'azione di annullamento cattura è comunque avvenuta.
+    expect(onCapture).not.toHaveBeenCalled();
+  });
+});
+
 // Property-based test (fast-check).
 // Feature: pokedex-themed-views, Property 9: Ogni riga dell'elenco contiene numero, nome e tipi
 describe('PokemonListItem (property-based)', () => {

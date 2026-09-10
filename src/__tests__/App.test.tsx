@@ -4,7 +4,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { Result } from '../api/errors';
 import type { PokeApiClient } from '../api/pokeApiClient';
-import type { Pokemon, PokemonListPage } from '../types/pokemon';
+import type {
+  Pokemon,
+  PokemonListPage,
+  PokemonSpecies,
+} from '../types/pokemon';
 import App from '../App';
 
 // Test dei componenti (RTL) per il wiring dell'Applicazione (App).
@@ -68,11 +72,13 @@ function createMockClient(
   overrides?: Partial<{
     list: PokeApiClient['list'];
     get: PokeApiClient['get'];
+    getSpecies: PokeApiClient['getSpecies'];
   }>,
 ): {
   readonly client: PokeApiClient;
   readonly list: ReturnType<typeof vi.fn>;
   readonly get: ReturnType<typeof vi.fn>;
+  readonly getSpecies: ReturnType<typeof vi.fn>;
 } {
   const list = vi.fn<PokeApiClient['list']>(
     overrides?.list ?? (() => Promise.resolve(firstGenPage)),
@@ -80,18 +86,26 @@ function createMockClient(
   const get = vi.fn<PokeApiClient['get']>(
     overrides?.get ?? (() => Promise.resolve({ ok: true, value: charmander })),
   );
-  return { client: { get, list }, list, get };
+  const getSpecies = vi.fn<PokeApiClient['getSpecies']>(
+    overrides?.getSpecies ??
+      (() => Promise.resolve({ ok: true, value: { id: 0, flavorText: '' } })),
+  );
+  return { client: { get, list, getSpecies }, list, get, getSpecies };
 }
 
 beforeEach(() => {
   vi.stubGlobal('IntersectionObserver', MockIntersectionObserver);
   document.documentElement.removeAttribute('data-theme');
+  // L'App usa `window.localStorage` come Store_Catture predefinito: azzeriamo
+  // la Chiave_Persistenza per partire da uno stato deterministico.
+  window.localStorage.clear();
 });
 
 afterEach(() => {
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
   document.documentElement.removeAttribute('data-theme');
+  window.localStorage.clear();
 });
 
 describe('App — wiring dell\u0027applicazione', () => {
@@ -166,5 +180,68 @@ describe('App — wiring dell\u0027applicazione', () => {
     await screen.findByRole('button', { name: 'Indietro' });
 
     expect(document.documentElement.getAttribute('data-theme')).toBe('rosso');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Wiring del CaptureProvider in App (task 12.2, fase RED).
+//
+// L'App deve avvolgere entrambe le viste con un unico `CaptureProvider`, così
+// Elenco e Dettaglio condividono lo stesso Gestore_Catture: una cattura fatta
+// (o già presente) nell'Elenco è visibile nel Dettaglio (Req 4.7).
+//
+// L'App non riceve uno storage iniettato: usa `window.localStorage` come
+// Store_Catture predefinito (Req 4.7). Seminiamo quindi la Chiave_Persistenza
+// `'pokedex-captures'` con l'id di Charmander (4) PRIMA del render, così quel
+// Pokémon risulta già catturato all'avvio. Navigando al suo Dettaglio, la
+// Vista_Dettaglio — leggendo lo stesso Gestore_Catture — deve richiedere la
+// Descrizione_Pokedex e mostrarne il testo (sezione `.pokemon-species-text`).
+//
+// Questo test FALLISCE finché `src/App.tsx` non avvolge l'app nel
+// `CaptureProvider` (task 12.3): senza provider condiviso, il Dettaglio non
+// vede lo Stato_Catturato, non richiede la Descrizione_Pokedex e non ne mostra
+// il testo.
+// _Requirements: 4.7_
+
+/** La Chiave_Persistenza usata dallo Store_Catture predefinito (localStorage). */
+const CAPTURES_KEY = 'pokedex-captures';
+
+/** Descrizione_Pokedex di Charmander con testo non vuoto, per il Dettaglio. */
+const charmanderSpecies: PokemonSpecies = {
+  id: 4,
+  flavorText: 'Preferisce le cose calde. Si dice che quando piove esca vapore.',
+};
+
+describe('App — wiring del CaptureProvider (Elenco e Dettaglio condivisi)', () => {
+  it('un Pokémon catturato nell\u0027Elenco è visto come catturato dal Dettaglio: mostra la Descrizione_Pokedex (Req 4.7)', async () => {
+    // Charmander (id 4) è già catturato nello Store_Catture predefinito.
+    window.localStorage.setItem(CAPTURES_KEY, JSON.stringify([4]));
+
+    const { client, getSpecies } = createMockClient({
+      getSpecies: () =>
+        Promise.resolve({ ok: true, value: charmanderSpecies }),
+    });
+
+    const { container } = render(<App client={client} />);
+
+    // Dall'Elenco selezioniamo Charmander per aprire la Vista_Dettaglio.
+    const user = userEvent.setup();
+    await user.click(await screen.findByText(/charmander/i));
+
+    // Il Dettaglio si monta (compare il comando di ritorno).
+    await screen.findByRole('button', { name: 'Indietro' });
+
+    // Poiché Elenco e Dettaglio condividono lo stesso Gestore_Catture, il
+    // Dettaglio vede Charmander come catturato: richiede la Descrizione_Pokedex
+    // (una sola volta, per lo stesso id) e ne mostra il testo.
+    await waitFor(() => expect(getSpecies).toHaveBeenCalledWith(4));
+    await waitFor(() =>
+      expect(
+        container.querySelector('.pokemon-species-text'),
+      ).toBeInTheDocument(),
+    );
+    expect(
+      screen.getByText(/preferisce le cose calde/i),
+    ).toBeInTheDocument();
   });
 });
