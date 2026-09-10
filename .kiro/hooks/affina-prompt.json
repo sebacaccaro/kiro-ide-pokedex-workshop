@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Affina prompt",
+      "trigger": "UserPromptSubmit",
+      "action": {
+        "type": "agent",
+        "prompt": "Elabora e raffina il prompt dell'utente se non chiaro. In caso poni domande a scelta multipla"
+      },
+      "enabled": true
+    }
+  ]
+}
