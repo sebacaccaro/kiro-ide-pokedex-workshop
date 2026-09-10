@@ -6,6 +6,7 @@ import { LoadingIndicator } from '../components/LoadingIndicator';
 import { PokemonList } from '../components/PokemonList';
 import { useCaptures } from '../hooks/useCaptures';
 import { usePokemonList } from '../hooks/usePokemonList';
+import { useTheme } from '../hooks/useTheme';
 
 // Vista_Elenco: collega `usePokemonList` al componente di presentazione
 // `PokemonList` e sceglie cosa mostrare in base allo stato osservabile
@@ -46,6 +47,9 @@ export function PokemonListView({
   // voce (Req 1.1, 2.3, 3.2).
   const { isCaptured, capture, uncapture } = useCaptures();
 
+  // Tema attivo: determina il set di sprite del gioco mostrato in ogni voce.
+  const { theme } = useTheme();
+
   // Stato_Caricamento iniziale: primo blocco in corso, nessuna voce (Req 2.1).
   if (isInitialLoading) {
     return <LoadingIndicator />;
@@ -75,6 +79,7 @@ export function PokemonListView({
       isLoadingMore={isLoadingMore}
       onSelect={onSelect}
       onReachEnd={loadMore}
+      theme={theme}
       isCaptured={isCaptured}
       onCapture={capture}
       onUncapture={uncapture}

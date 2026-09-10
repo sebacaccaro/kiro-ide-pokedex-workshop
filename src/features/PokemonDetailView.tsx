@@ -8,6 +8,8 @@ import { PokemonSpeciesText } from '../components/PokemonSpeciesText';
 import { useCaptures } from '../hooks/useCaptures';
 import { usePokemonDetail } from '../hooks/usePokemonDetail';
 import { usePokemonSpecies } from '../hooks/usePokemonSpecies';
+import { useTheme } from '../hooks/useTheme';
+import { spriteUrlForTheme } from '../lib/sprites';
 
 // Vista_Dettaglio: collega `usePokemonDetail` al componente di presentazione
 // `PokemonDetail` e sceglie cosa mostrare in base allo stato osservabile
@@ -47,6 +49,9 @@ export function PokemonDetailView({
   const { isCaptured } = useCaptures();
   const captured = isCaptured(id);
 
+  // Tema attivo: lo sprite del dettaglio proviene dal set del gioco corrispondente.
+  const { theme } = useTheme();
+
   // Fetch della Descrizione_Pokedex con gating su `captured`: nessuna richiesta
   // quando non catturato (Req 5.1, 5.3). Gli hook sono chiamati incondizionatamente
   // per rispettare le regole degli hook; il branching sul rendering avviene dopo.
@@ -83,9 +88,14 @@ export function PokemonDetailView({
   // sempre visibili (Req 5.2, 5.4, 5.5, 5.6). Se non catturato, nessuna sezione
   // descrizione (Req 5.3).
   if (pokemon !== null) {
+    // Sprite del gioco corrispondente al tema, derivato dall'id del Pokémon.
+    const themedPokemon = {
+      ...pokemon,
+      spriteUrl: spriteUrlForTheme(pokemon.id, theme),
+    };
     return (
       <>
-        <PokemonDetail pokemon={pokemon} onBack={onBack} />
+        <PokemonDetail pokemon={themedPokemon} onBack={onBack} />
         {captured && (
           <PokemonSpeciesText
             isLoading={isSpeciesLoading}

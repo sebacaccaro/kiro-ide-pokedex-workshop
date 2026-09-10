@@ -11,6 +11,7 @@ import type {
 } from '../../types/pokemon';
 import { CaptureProvider, type CaptureStorage } from '../CaptureProvider';
 import { PokemonDetailView } from '../PokemonDetailView';
+import { ThemeProvider } from '../ThemeProvider';
 
 // Test dei componenti (RTL) per la Vista_Dettaglio (PokemonDetailView).
 // Fase RED del TDD (task 13.1): `src/features/PokemonDetailView.tsx` NON esiste
@@ -107,9 +108,11 @@ describe('PokemonDetailView', () => {
     const { client } = createMockClient(() => Promise.resolve(ok(pikachu)));
 
     render(
-      <CaptureProvider storage={emptyStorage()}>
-        <PokemonDetailView client={client} id={25} onBack={vi.fn()} />
-      </CaptureProvider>,
+      <ThemeProvider>
+        <CaptureProvider storage={emptyStorage()}>
+          <PokemonDetailView client={client} id={25} onBack={vi.fn()} />
+        </CaptureProvider>
+      </ThemeProvider>,
     );
 
     // Req 4.1: mentre la richiesta è in corso, l'indicatore è visibile.
@@ -128,9 +131,11 @@ describe('PokemonDetailView', () => {
     );
 
     render(
-      <CaptureProvider storage={emptyStorage()}>
-        <PokemonDetailView client={client} id={9999} onBack={vi.fn()} />
-      </CaptureProvider>,
+      <ThemeProvider>
+        <CaptureProvider storage={emptyStorage()}>
+          <PokemonDetailView client={client} id={9999} onBack={vi.fn()} />
+        </CaptureProvider>
+      </ThemeProvider>,
     );
 
     // Il messaggio indica che il Pokémon non esiste.
@@ -145,9 +150,11 @@ describe('PokemonDetailView', () => {
     );
 
     render(
-      <CaptureProvider storage={emptyStorage()}>
-        <PokemonDetailView client={client} id={25} onBack={vi.fn()} />
-      </CaptureProvider>,
+      <ThemeProvider>
+        <CaptureProvider storage={emptyStorage()}>
+          <PokemonDetailView client={client} id={25} onBack={vi.fn()} />
+        </CaptureProvider>
+      </ThemeProvider>,
     );
 
     // Req 4.4: messaggio di errore (role="alert") che riporta la categoria.
@@ -169,9 +176,11 @@ describe('PokemonDetailView', () => {
     const { client } = createMockClient(() => Promise.resolve(ok(pikachu)));
 
     render(
-      <CaptureProvider storage={emptyStorage()}>
-        <PokemonDetailView client={client} id={25} onBack={onBack} />
-      </CaptureProvider>,
+      <ThemeProvider>
+        <CaptureProvider storage={emptyStorage()}>
+          <PokemonDetailView client={client} id={25} onBack={onBack} />
+        </CaptureProvider>
+      </ThemeProvider>,
     );
 
     // Attende il rendering dei dati (compare il comando "Indietro").
@@ -247,9 +256,11 @@ describe('PokemonDetailView — Descrizione_Pokedex e Stato_Catturato', () => {
     );
 
     const { container } = render(
-      <CaptureProvider storage={seededStorage([25])}>
-        <PokemonDetailView client={client} id={25} onBack={vi.fn()} />
-      </CaptureProvider>,
+      <ThemeProvider>
+        <CaptureProvider storage={seededStorage([25])}>
+          <PokemonDetailView client={client} id={25} onBack={vi.fn()} />
+        </CaptureProvider>
+      </ThemeProvider>,
     );
 
     // Attende il rendering dei dati (compare il nome del Pokémon).
@@ -276,9 +287,11 @@ describe('PokemonDetailView — Descrizione_Pokedex e Stato_Catturato', () => {
     );
 
     const { container } = render(
-      <CaptureProvider storage={seededStorage([])}>
-        <PokemonDetailView client={client} id={25} onBack={vi.fn()} />
-      </CaptureProvider>,
+      <ThemeProvider>
+        <CaptureProvider storage={seededStorage([])}>
+          <PokemonDetailView client={client} id={25} onBack={vi.fn()} />
+        </CaptureProvider>
+      </ThemeProvider>,
     );
 
     // Attende il rendering dei dati del Pokémon.

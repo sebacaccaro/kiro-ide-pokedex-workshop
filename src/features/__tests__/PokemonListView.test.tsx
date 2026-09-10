@@ -9,6 +9,7 @@ import type { PokeApiClient } from '../../api/pokeApiClient';
 import type { Pokemon, PokemonListPage } from '../../types/pokemon';
 import { CaptureProvider, type CaptureStorage } from '../CaptureProvider';
 import { PokemonListView } from '../PokemonListView';
+import { ThemeProvider } from '../ThemeProvider';
 
 // Test dei componenti (RTL) per la Vista_Elenco (PokemonListView).
 // La vista collega `usePokemonList` a `PokemonList` e sceglie cosa mostrare tra
@@ -123,8 +124,16 @@ function renderListView(
   ui: ReactElement,
   storage: CaptureStorage = createMemoryStorage(null),
 ): ReturnType<typeof render> {
-  function Wrapper({ children }: { readonly children: ReactNode }): JSX.Element {
-    return <CaptureProvider storage={storage}>{children}</CaptureProvider>;
+  function Wrapper({
+    children,
+  }: {
+    readonly children: ReactNode;
+  }): JSX.Element {
+    return (
+      <ThemeProvider>
+        <CaptureProvider storage={storage}>{children}</CaptureProvider>
+      </ThemeProvider>
+    );
   }
   return render(ui, { wrapper: Wrapper });
 }
@@ -171,9 +180,7 @@ describe('PokemonListView', () => {
   });
 
   it('mostra un messaggio di Stato_Vuoto quando il primo blocco non ha voci di Prima_Generazione (Req 2.6)', async () => {
-    const { client } = createMockClient(() =>
-      Promise.resolve(outOfRangePage),
-    );
+    const { client } = createMockClient(() => Promise.resolve(outOfRangePage));
 
     renderListView(<PokemonListView client={client} onSelect={vi.fn()} />);
 

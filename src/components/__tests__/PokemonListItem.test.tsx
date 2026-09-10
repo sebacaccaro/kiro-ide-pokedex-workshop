@@ -220,3 +220,67 @@ describe('PokemonListItem (property-based)', () => {
     );
   });
 });
+
+// -----------------------------------------------------------------------------
+// Sprite dipendente dal tema (Tema_Rosso -> Rosso/Blu Gen I, Tema_Diamante ->
+// Diamante/Perla Gen IV). La Voce_Elenco accetta un `theme` opzionale e deriva
+// la miniatura dal set di sprite del gioco corrispondente. Senza `theme`
+// mantiene lo sprite generico (retrocompatibilità).
+// -----------------------------------------------------------------------------
+describe('PokemonListItem — sprite per tema', () => {
+  it('usa lo sprite Rosso/Blu (Gen I) quando il tema è rosso', () => {
+    render(
+      <PokemonListItem
+        entry={entry}
+        isSelected={false}
+        onSelect={vi.fn()}
+        theme="rosso"
+      />,
+    );
+
+    const image = screen.getByRole('img', { name: 'pikachu' });
+    expect(image).toHaveAttribute(
+      'src',
+      expect.stringContaining(
+        '/versions/generation-i/red-blue/transparent/25.png',
+      ),
+    );
+  });
+
+  it('usa lo sprite Diamante/Perla (Gen IV) quando il tema è diamante', () => {
+    render(
+      <PokemonListItem
+        entry={entry}
+        isSelected={false}
+        onSelect={vi.fn()}
+        theme="diamante"
+      />,
+    );
+
+    const image = screen.getByRole('img', { name: 'pikachu' });
+    expect(image).toHaveAttribute(
+      'src',
+      expect.stringContaining('/versions/generation-iv/diamond-pearl/25.png'),
+    );
+  });
+
+  it('ripiega sullo sprite generico se lo sprite del gioco non si carica (onError)', () => {
+    render(
+      <PokemonListItem
+        entry={entry}
+        isSelected={false}
+        onSelect={vi.fn()}
+        theme="rosso"
+      />,
+    );
+
+    const image = screen.getByRole('img', { name: 'pikachu' });
+    image.dispatchEvent(new Event('error'));
+
+    // Dopo il fallimento il src ripiega sullo sprite generico (.../25.png senza versions).
+    expect(image).toHaveAttribute(
+      'src',
+      expect.stringContaining('/pokemon/25.png'),
+    );
+  });
+});

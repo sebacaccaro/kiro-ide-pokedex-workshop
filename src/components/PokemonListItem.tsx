@@ -1,7 +1,8 @@
 import type { JSX } from 'react';
 
 import type { PokemonListEntry } from '../lib/generation';
-import { spriteUrlForId } from '../lib/sprites';
+import { spriteUrlForId, spriteUrlForTheme } from '../lib/sprites';
+import type { ThemeName } from '../lib/theme';
 import { CaptureToggle } from './CaptureToggle';
 
 export interface PokemonListItemProps {
@@ -9,6 +10,12 @@ export interface PokemonListItemProps {
   /** Elemento selezionato: mostra il cursore a freccia nel Tema_Rosso (Req 6.6). */
   readonly isSelected: boolean;
   readonly onSelect: (id: number) => void;
+  /**
+   * Tema attivo: se fornito, la miniatura proviene dal set di sprite del gioco
+   * corrispondente (Tema_Rosso -> Rosso/Blu, Tema_Diamante -> Diamante/Perla).
+   * Senza `theme` si usa lo sprite generico (retrocompatibilità).
+   */
+  readonly theme?: ThemeName;
   /**
    * Stato_Catturato della voce per il Toggle_Cattura (Req 1.1). Il Toggle è
    * reso solo quando i comandi di cattura sono forniti dalla Vista_Elenco.
@@ -36,12 +43,22 @@ export function PokemonListItem({
   entry,
   isSelected,
   onSelect,
+  theme,
   isCaptured,
   onCapture,
   onUncapture,
 }: PokemonListItemProps): JSX.Element {
   const hasCaptureCommands =
     onCapture !== undefined && onUncapture !== undefined;
+
+  // Sprite del gioco corrispondente al tema, quando fornito; altrimenti generico.
+  const spriteSrc =
+    theme !== undefined
+      ? spriteUrlForTheme(entry.id, theme)
+      : spriteUrlForId(entry.id);
+  // Fallback: non tutti i Pokémon hanno uno sprite in ogni gioco. Se lo sprite
+  // per-tema non si carica, si ripiega sullo sprite generico.
+  const fallbackSrc = spriteUrlForId(entry.id);
 
   return (
     <div
@@ -59,11 +76,18 @@ export function PokemonListItem({
     >
       <img
         className="pokemon-list-item__sprite pokedex-sprite"
-        src={spriteUrlForId(entry.id)}
+        src={spriteSrc}
         alt={entry.name}
         loading="lazy"
         width={64}
         height={64}
+        onError={(event) => {
+          // Ripiega una sola volta sullo sprite generico per evitare loop.
+          const img = event.currentTarget;
+          if (img.src !== fallbackSrc) {
+            img.src = fallbackSrc;
+          }
+        }}
       />
       <span className="pokemon-number">{entry.id}</span>
       <span className="pokemon-name">{entry.name}</span>

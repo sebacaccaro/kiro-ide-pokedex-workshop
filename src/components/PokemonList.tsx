@@ -1,6 +1,7 @@
 import { useEffect, useRef, type JSX } from 'react';
 
 import type { PokemonListEntry } from '../lib/generation';
+import type { ThemeName } from '../lib/theme';
 import { PokemonListItem } from './PokemonListItem';
 
 export interface PokemonListProps {
@@ -10,6 +11,8 @@ export interface PokemonListProps {
   readonly onSelect: (id: number) => void;
   /** Invocata quando la sentinella entra nel viewport (infinite scroll, Req 1.4). */
   readonly onReachEnd: () => void;
+  /** Tema attivo: propagato a ogni voce per lo sprite del gioco corrispondente. */
+  readonly theme?: ThemeName;
   /**
    * Predicato dello Stato_Catturato per voce, dalla Vista_Elenco (Req 1.1).
    * Quando fornito insieme ai comandi, ogni voce rende il Toggle_Cattura.
@@ -31,6 +34,7 @@ export function PokemonList({
   isLoadingMore,
   onSelect,
   onReachEnd,
+  theme,
   isCaptured,
   onCapture,
   onUncapture,
@@ -66,6 +70,7 @@ export function PokemonList({
           entry={entry}
           isSelected={false}
           onSelect={onSelect}
+          theme={theme}
           isCaptured={
             hasCaptureCommands ? (isCaptured?.(entry.id) ?? false) : undefined
           }

@@ -358,6 +358,9 @@ img {
   object-fit: contain;
   image-rendering: pixelated; /* le sprite sono piccole: niente sfocatura */
   flex: none;
+  /* Gli sprite Gen I hanno molto margine vuoto attorno al soggetto: un lieve
+     ingrandimento riempie meglio il riquadro senza ritagliare (contain). */
+  transform: scale(1.3);
 }
 
 .pokemon-number {
@@ -421,6 +424,9 @@ img {
   height: 160px;
   object-fit: contain;
   image-rendering: pixelated;
+  /* Ingrandimento coerente con la lista: il soggetto riempie meglio lo schermo
+     del dispositivo senza tagli. Il contenitore ha `overflow` che non ritaglia. */
+  transform: scale(1.3);
 }
 
 .pokemon-detail__name {
@@ -682,11 +688,11 @@ img {
     ),
     /* banda centrale orizzontale */
     linear-gradient(
-      to bottom,
-      transparent 0 44%,
-      var(--pokeball-band) 44% 56%,
-      transparent 56%
-    ),
+        to bottom,
+        transparent 0 44%,
+        var(--pokeball-band) 44% 56%,
+        transparent 56%
+      ),
     /* metà inferiore bianca */
     linear-gradient(to bottom, transparent 0 50%, var(--pokeball-bottom) 50%),
     /* metà superiore colorata */
