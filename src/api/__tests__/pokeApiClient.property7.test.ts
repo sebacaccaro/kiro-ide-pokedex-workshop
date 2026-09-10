@@ -28,9 +28,15 @@ function createRejectingFetch(reason: unknown): FetchFn {
 
 // Identificatori validi per `get`: interi in 1..100000 oppure stringhe non
 // vuote di lunghezza 1..100 (Requirement 1.1, 1.2).
+//
+// Nota: le stringhe di soli spazi NON sono identificatori validi. `validateIdentifier`
+// (src/api/validation.ts) applica un trim e rifiuta la stringa vuota-dopo-trim come
+// "parametri non validi" PRIMA che la fetch venga invocata. Per questa proprietà
+// serve che l'identificatore sia genuinamente valido (così la fetch parte e rigetta),
+// quindi filtriamo le stringhe con trim di lunghezza 0.
 const validIdentifier: fc.Arbitrary<string | number> = fc.oneof(
   fc.integer({ min: 1, max: 100000 }),
-  fc.string({ minLength: 1, maxLength: 100 }),
+  fc.string({ minLength: 1, maxLength: 100 }).filter((s) => s.trim().length > 0),
 );
 
 // Paginazione valida per `list`: limit in 1..100, offset >= 0 (Requirement 2.4).
